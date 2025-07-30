@@ -13,7 +13,11 @@ import org.xbill.DNS.utils.base64;
  * @author Brian Wellington
  */
 abstract class KEYBase extends Record {
-  protected int flags;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+protected int flags;
   protected int proto;
   protected int alg;
   protected byte[] key;

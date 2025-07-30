@@ -26,7 +26,11 @@ import java.net.UnknownHostException;
  * @author Ming Zhou &lt;mizhou@bnivideo.com&gt;, Beaumaris Networks
  */
 public class ClientSubnetOption extends EDNSOption {
-  private int family;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int family;
   private int sourcePrefixLength;
   private int scopePrefixLength;
   private InetAddress address;

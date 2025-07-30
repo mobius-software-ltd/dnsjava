@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +35,6 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.Section;
 import org.xbill.DNS.Type;
 
-@Slf4j
 class UnboundTests extends TestBase {
   void runUnboundTest() throws ParseException, IOException {
     try {
@@ -212,7 +210,8 @@ class UnboundTests extends TestBase {
   static void main(String[] xargs) throws IOException, ParseException {
     Map<String, String> ignored =
         new HashMap<String, String>() {
-          {
+         private static final long serialVersionUID = 1L;
+		 {
             put("val_faildnskey_ok.rpl", "tests an unbound specific config option");
             put("val_nsec3_nods_negcache.rpl", "we don't do negative caching");
             put("val_unsecds_negcache.rpl", "we don't do negative caching");

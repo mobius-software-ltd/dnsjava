@@ -46,7 +46,12 @@ import org.xbill.DNS.utils.base64;
 
 class KEYBaseTest {
   private static class TestClass extends KEYBase {
-    TestClass() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	TestClass() {}
 
     TestClass(
         Name name, int type, int dclass, long ttl, int flags, int proto, int alg, byte[] key) {

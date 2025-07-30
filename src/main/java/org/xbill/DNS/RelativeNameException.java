@@ -11,7 +11,12 @@ package org.xbill.DNS;
  */
 public class RelativeNameException extends IllegalArgumentException {
 
-  public RelativeNameException(Name name) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public RelativeNameException(Name name) {
     super("'" + name + "' is not an absolute name");
   }
 

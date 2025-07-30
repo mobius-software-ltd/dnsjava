@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class RTRecord extends U16NameBase {
-  RTRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+RTRecord() {}
 
   /**
    * Creates an RT Record from the given data

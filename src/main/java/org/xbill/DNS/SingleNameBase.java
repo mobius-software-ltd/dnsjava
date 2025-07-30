@@ -11,7 +11,11 @@ import java.io.IOException;
  * @author Brian Wellington
  */
 abstract class SingleNameBase extends Record {
-  protected Name singleName;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+protected Name singleName;
 
   protected SingleNameBase() {}
 

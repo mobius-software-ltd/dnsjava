@@ -19,6 +19,11 @@ import java.util.List;
  */
 public class WKSRecord extends Record {
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
    * IP protocol identifiers. This is basically copied out of RFC 1010.
    *
    * @see <a href="https://datatracker.ietf.org/doc/html/rfc1010">RFC 1010: Assigned Numbers</a>

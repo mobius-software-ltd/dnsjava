@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class MBRecord extends SingleNameBase {
-  MBRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+MBRecord() {}
 
   /**
    * Creates a new MB Record with the given data

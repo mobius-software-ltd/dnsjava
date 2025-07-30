@@ -1,11 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 enum SetResponseType {
   /** The Cache contains no information about the requested name/type */
   UNKNOWN(false, true),
@@ -49,4 +44,17 @@ enum SetResponseType {
 
   /** If true, no RRsets can be added. Intended for static NX* instances. */
   private final boolean isSealed;
+
+  public boolean isPrintRecords() {
+	return printRecords;
+  }
+
+  public boolean isSealed() {
+	return isSealed;
+  }
+
+  private SetResponseType(boolean printRecords, boolean isSealed) {
+	this.printRecords = printRecords;
+	this.isSealed = isSealed;
+  }   
 }

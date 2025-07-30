@@ -8,8 +8,9 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.xbill.DNS.config.AndroidResolverConfigProvider;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.config.FallbackPropertyResolverConfigProvider;
 import org.xbill.DNS.config.InitializationException;
 import org.xbill.DNS.config.JndiContextResolverConfigProvider;
@@ -30,8 +31,6 @@ import org.xbill.DNS.config.WindowsResolverConfigProvider;
  *       org.xbill.DNS.config.ResolvConfResolverConfigProvider}
  *   <li>On Windows, GetAdaptersAddresses is called, see {@link
  *       org.xbill.DNS.config.WindowsResolverConfigProvider}
- *   <li>On Android, system properties or the ConnectivityManager are read, see {@link
- *       org.xbill.DNS.config.AndroidResolverConfigProvider}
  *   <li>The JNDI DNS Service Provider is queried, see {@link
  *       org.xbill.DNS.config.JndiContextResolverConfigProvider}
  *   <li>The sun.net.dns.ResolverConfiguration class is queried, see {@link
@@ -42,8 +41,8 @@ import org.xbill.DNS.config.WindowsResolverConfigProvider;
  * These routines will be called internally when creating Resolvers/Lookups without explicitly
  * specifying server names, and can also be called directly if desired.
  */
-@Slf4j
 public final class ResolverConfig {
+  private Logger log = LogManager.getLogger(ResolverConfig.class);
   /**
    * System property name to disable {@link ResolverConfigProvider} initialization.
    *
@@ -101,7 +100,6 @@ public final class ResolverConfig {
           configProviders.add(new PropertyResolverConfigProvider());
           configProviders.add(new ResolvConfResolverConfigProvider());
           configProviders.add(new WindowsResolverConfigProvider());
-          configProviders.add(new AndroidResolverConfigProvider());
           configProviders.add(new JndiContextResolverConfigProvider());
           configProviders.add(new SunJvmResolverConfigProvider());
           configProviders.add(new FallbackPropertyResolverConfigProvider());

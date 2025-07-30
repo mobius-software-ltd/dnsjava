@@ -7,11 +7,14 @@ import java.net.URISyntaxException;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.SimpleResolver;
 
@@ -20,21 +23,18 @@ import org.xbill.DNS.SimpleResolver;
  * href="https://docs.oracle.com/javase/8/docs/technotes/guides/jndi/jndi-dns.html">JNDI DNS Service
  * Provider</a>.
  */
-@Slf4j
 public class JndiContextResolverConfigProvider implements ResolverConfigProvider {
+  private Logger log = LogManager.getLogger(JndiContextResolverConfigProvider.class);
   private InnerJndiContextResolverConfigProvider inner;
 
   public JndiContextResolverConfigProvider() {
-    if (!System.getProperty("java.vendor").contains("Android")) {
-      try {
-        inner = new InnerJndiContextResolverConfigProvider();
-      } catch (NoClassDefFoundError e) {
-        log.debug("JNDI DNS not available");
-      }
-    }
+	  try {
+		  inner = new InnerJndiContextResolverConfigProvider();
+	  } catch (NoClassDefFoundError e) {
+		  log.debug("JNDI DNS not available");
+	  }	  
   }
 
-  @Slf4j
   private static final class InnerJndiContextResolverConfigProvider
       extends BaseResolverConfigProvider {
     static {

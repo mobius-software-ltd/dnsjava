@@ -16,7 +16,11 @@ import java.util.BitSet;
  *     Security Extensions</a>
  */
 public class NXTRecord extends Record {
-  private Name next;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name next;
   private BitSet bitmap;
 
   NXTRecord() {}

@@ -10,7 +10,12 @@ package org.xbill.DNS;
  */
 public class NameTooLongException extends WireParseException {
 
-  public NameTooLongException() {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public NameTooLongException() {
     super();
   }
 

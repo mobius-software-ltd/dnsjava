@@ -9,7 +9,12 @@ package org.xbill.DNS.lookup;
  * @since 3.4
  */
 public class InvalidZoneDataException extends LookupFailedException {
-  InvalidZoneDataException(String message, Throwable inner) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+InvalidZoneDataException(String message, Throwable inner) {
     super(message, inner);
   }
 

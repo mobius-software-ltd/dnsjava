@@ -62,7 +62,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class RecordTest {
   private static class SubRecord extends Record {
-    SubRecord() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	SubRecord() {}
 
     SubRecord(Name name, int type, int dclass, long ttl) {
       super(name, type, dclass, ttl);

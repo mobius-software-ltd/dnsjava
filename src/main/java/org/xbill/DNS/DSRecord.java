@@ -19,6 +19,11 @@ import org.xbill.DNS.utils.base16;
 public class DSRecord extends Record {
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
    * DS digest constants.
    *
    * @deprecated use {@link DNSSEC.Digest}

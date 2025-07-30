@@ -16,6 +16,11 @@ import java.util.Arrays;
 public abstract class EDNSOption implements Serializable {
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
    * @see <a
    *     href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-11">IANA
    *     DNS EDNS0 Option Codes (OPT)</a>

@@ -17,9 +17,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import lombok.NonNull;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.AAAARecord;
 import org.xbill.DNS.ARecord;
 import org.xbill.DNS.CNAMERecord;
@@ -53,9 +53,9 @@ import org.xbill.DNS.hosts.HostsFileParser;
  *
  * @since 3.4
  */
-@Slf4j
 public class LookupSession {
-
+  private static Logger log = LogManager.getLogger(LookupSession.class);
+	  
   public static final int DEFAULT_MAX_ITERATIONS = 16;
   public static final int DEFAULT_NDOTS = 1;
 
@@ -70,7 +70,7 @@ public class LookupSession {
   private final IrrelevantRecordMode irrelevantRecordMode;
 
   private LookupSession(
-      @NonNull Resolver resolver,
+      Resolver resolver,
       int maxRedirects,
       int ndots,
       List<Name> searchPath,
@@ -79,6 +79,9 @@ public class LookupSession {
       HostsFileParser hostsFileParser,
       Executor executor,
       IrrelevantRecordMode irrelevantRecordMode) {
+	if (resolver == null)
+		throw new NullPointerException("resolver is marked non-null but is null");
+      
     this.resolver = resolver;
     this.maxRedirects = maxRedirects;
     this.ndots = ndots;
@@ -99,7 +102,6 @@ public class LookupSession {
    * the different properties. Once fully configured, a {@link LookupSession} instance is obtained
    * by calling {@link LookupSessionBuilder#build()} on the builder instance.
    */
-  @ToString
   public static class LookupSessionBuilder {
 
     private Resolver resolver;
@@ -119,7 +121,10 @@ public class LookupSession {
      *
      * @return {@code this}.
      */
-    public LookupSessionBuilder resolver(@NonNull Resolver resolver) {
+    public LookupSessionBuilder resolver(Resolver resolver) {
+      if (resolver == null)
+    	  throw new NullPointerException("resolver is marked non-null but is null");
+          
       this.resolver = resolver;
       return this;
     }
@@ -246,7 +251,10 @@ public class LookupSession {
      * @return {@code this}.
      * @see Cache
      */
-    public LookupSessionBuilder cache(@NonNull Cache cache) {
+    public LookupSessionBuilder cache(Cache cache) {
+      if (cache == null)
+    	  throw new NullPointerException("cache is marked non-null but is null");
+      
       if (caches == null) {
         caches = new ArrayList<>(1);
       }
@@ -267,7 +275,10 @@ public class LookupSession {
      * @return {@code this}.
      * @see Cache
      */
-    public LookupSessionBuilder caches(@NonNull Collection<Cache> caches) {
+    public LookupSessionBuilder caches(Collection<Cache> caches) {
+      if (caches == null)
+    	throw new NullPointerException("caches is marked non-null but is null");
+          
       caches.forEach(this::cache);
       return this;
     }
@@ -293,7 +304,13 @@ public class LookupSession {
      * @deprecated use {@link #cache(Cache)}, the {@link Cache} already provides the class.
      */
     @Deprecated
-    public LookupSessionBuilder cache(@NonNull Integer dclass, @NonNull Cache cache) {
+    public LookupSessionBuilder cache(Integer dclass, Cache cache) {
+      if (dclass == null)
+    	throw new NullPointerException("dclass is marked non-null but is null");
+                  
+      if (cache == null)
+        throw new NullPointerException("cache is marked non-null but is null");
+              
       cache(cache);
       return this;
     }
@@ -308,7 +325,10 @@ public class LookupSession {
      *     already provides the class.
      */
     @Deprecated
-    public LookupSessionBuilder caches(@NonNull Map<Integer, Cache> caches) {
+    public LookupSessionBuilder caches(Map<Integer, Cache> caches) {
+      if (caches == null)
+    	  throw new NullPointerException("caches is marked non-null but is null");
+                      
       return caches(caches.values());
     }
 

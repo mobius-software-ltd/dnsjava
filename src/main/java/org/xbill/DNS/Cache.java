@@ -11,7 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A cache of DNS records. The cache obeys TTLs, so items are purged after their validity period is
@@ -23,9 +25,9 @@ import lombok.extern.slf4j.Slf4j;
  * @see Credibility
  * @author Brian Wellington
  */
-@Slf4j
 public class Cache {
-
+  private Logger log = LogManager.getLogger(Cache.class);
+	  
   private interface Element {
     boolean expired();
 
@@ -48,7 +50,8 @@ public class Cache {
   }
 
   static class CacheRRset extends RRset implements Element {
-    int credibility;
+    private static final long serialVersionUID = 1L;
+	int credibility;
     int expire;
     boolean isAuthenticated;
 
@@ -144,7 +147,8 @@ public class Cache {
   }
 
   private static class CacheMap extends LinkedHashMap<Name, Object> {
-    private int maxsize;
+    private static final long serialVersionUID = 1L;
+	private int maxsize;
 
     CacheMap(int maxsize) {
       super(16, (float) 0.75, true);

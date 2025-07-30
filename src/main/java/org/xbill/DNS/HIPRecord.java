@@ -20,7 +20,11 @@ import org.xbill.DNS.utils.base64;
  * @see IPSECKEYRecord.Algorithm for PK algorithm numbers
  */
 public class HIPRecord extends Record {
-  private byte[] hit;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] hit;
   private int pkAlgorithm;
   private byte[] publicKey;
   private final List<Name> rvServers = new ArrayList<>();

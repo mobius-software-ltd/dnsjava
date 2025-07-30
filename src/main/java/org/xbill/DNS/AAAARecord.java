@@ -15,7 +15,11 @@ import java.net.UnknownHostException;
  *     IP Version 6</a>
  */
 public class AAAARecord extends Record {
-  private byte[] address;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] address;
 
   AAAARecord() {}
 

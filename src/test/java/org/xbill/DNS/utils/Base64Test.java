@@ -204,7 +204,6 @@ class Base64Test {
 
   @Test
   void fromString_empty1() {
-    byte[] data = new byte[0];
     byte[] out = base64.fromString("");
     assertArrayEquals(new byte[0], out);
   }

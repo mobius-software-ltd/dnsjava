@@ -3,7 +3,8 @@
 
 package org.xbill.DNS;
 
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * DNS Name Compression object.
@@ -12,9 +13,9 @@ import lombok.extern.slf4j.Slf4j;
  * @see Name
  * @author Brian Wellington
  */
-@Slf4j
 public class Compression {
-
+  private static Logger log = LogManager.getLogger(Compression.class);
+	  
   private static class Entry {
     Name name;
     int pos;

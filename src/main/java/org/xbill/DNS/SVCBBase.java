@@ -25,7 +25,11 @@ import org.xbill.DNS.utils.base64;
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc9460">RFC 9460</a>
  */
 public abstract class SVCBBase extends Record {
-  protected int svcPriority;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+protected int svcPriority;
   protected Name targetName;
   protected final Map<Integer, ParameterBase> svcParams;
 
@@ -125,7 +129,12 @@ public abstract class SVCBBase extends Record {
   }
 
   public abstract static class ParameterBase implements Serializable {
-    public ParameterBase() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ParameterBase() {}
 
     public abstract int getKey();
 
@@ -145,7 +154,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterMandatory extends ParameterBase {
-    private final List<Integer> values;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final List<Integer> values;
 
     public ParameterMandatory() {
       super();
@@ -220,7 +233,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterAlpn extends ParameterBase {
-    private final List<byte[]> values;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final List<byte[]> values;
 
     public ParameterAlpn() {
       super();
@@ -294,7 +311,12 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterNoDefaultAlpn extends ParameterBase {
-    public ParameterNoDefaultAlpn() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ParameterNoDefaultAlpn() {
       super();
     }
 
@@ -329,7 +351,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterPort extends ParameterBase {
-    private int port;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int port;
 
     public ParameterPort() {
       super();
@@ -380,7 +406,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterIpv4Hint extends ParameterBase {
-    private final List<byte[]> addresses;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final List<byte[]> addresses;
 
     public ParameterIpv4Hint() {
       super();
@@ -459,7 +489,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterEch extends ParameterBase {
-    private byte[] data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private byte[] data;
 
     public ParameterEch() {
       super();
@@ -510,7 +544,11 @@ public abstract class SVCBBase extends Record {
    */
   @Deprecated
   public static class ParameterEchConfig extends ParameterBase {
-    private byte[] data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private byte[] data;
 
     public ParameterEchConfig() {
       super();
@@ -555,7 +593,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterIpv6Hint extends ParameterBase {
-    private final List<byte[]> addresses;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final List<byte[]> addresses;
 
     public ParameterIpv6Hint() {
       super();
@@ -640,7 +682,11 @@ public abstract class SVCBBase extends Record {
   }
 
   public static class ParameterUnknown extends ParameterBase {
-    private final int key;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final int key;
     private byte[] value;
 
     public ParameterUnknown(int key) {

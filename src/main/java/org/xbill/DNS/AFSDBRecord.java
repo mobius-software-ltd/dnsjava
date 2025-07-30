@@ -10,7 +10,12 @@ package org.xbill.DNS;
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc1183">RFC 1183: New DNS RR Definitions</a>
  */
 public class AFSDBRecord extends U16NameBase {
-  AFSDBRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+AFSDBRecord() {}
 
   /**
    * Creates an AFSDB Record from the given data.

@@ -12,7 +12,11 @@ import org.xbill.DNS.utils.base16;
  */
 public class GenericEDNSOption extends EDNSOption {
 
-  private byte[] data;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] data;
 
   GenericEDNSOption(int code) {
     super(code);

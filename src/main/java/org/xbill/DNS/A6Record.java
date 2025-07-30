@@ -15,7 +15,11 @@ import java.net.UnknownHostException;
  *     Status</a>
  */
 public class A6Record extends Record {
-  private int prefixBits;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int prefixBits;
   private InetAddress suffix;
   private Name prefix;
 

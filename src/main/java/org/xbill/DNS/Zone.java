@@ -17,7 +17,6 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Supplier;
-import lombok.Getter;
 
 /**
  * A DNS zone. This encapsulates all data related to a zone, and provides convenient lookup methods.
@@ -29,6 +28,8 @@ import lombok.Getter;
  * @author Brian Wellington
  */
 public class Zone implements Serializable, Iterable<RRset> {
+  private static final long serialVersionUID = 1L;
+
   /** A primary zone. */
   public static final int PRIMARY = 1;
 
@@ -45,7 +46,7 @@ public class Zone implements Serializable, Iterable<RRset> {
   private boolean hasWild;
 
   /** Returns the zone's origin. */
-  @Getter private Name origin;
+  private Name origin;
 
   /** Returns the zone origin's {@link NSRecord NS records}. */
   private RRset nsRRset;
@@ -65,10 +66,13 @@ public class Zone implements Serializable, Iterable<RRset> {
   /** Returns the zone's {@link SOARecord SOA record}. */
   public SOARecord getSOA() {
     return soaRecord;
+  }    
+
+  public Name getOrigin() {
+		return origin;
   }
-
-  // ------------- Constructors
-
+  
+  // ------------- Constructors  
   /**
    * Creates a zone from the records in the specified master file.
    *

@@ -14,7 +14,11 @@ import java.io.IOException;
  *     Discovery System (DDDS) Part Three: The Domain Name System (DNS) Database</a>
  */
 public class NAPTRRecord extends Record {
-  private int order;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int order;
   private int preference;
   private byte[] flags;
   private byte[] service;

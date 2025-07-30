@@ -8,7 +8,6 @@ import java.net.spi.InetAddressResolverProvider.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-import lombok.extern.slf4j.Slf4j;
 import org.xbill.DNS.AAAARecord;
 import org.xbill.DNS.ARecord;
 import org.xbill.DNS.Lookup;
@@ -19,7 +18,6 @@ import org.xbill.DNS.ReverseMap;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
-@Slf4j
 class DnsjavaInetAddressResolver implements InetAddressResolver {
   private static final String PREFER_V6_PROPERTY = "java.net.preferIPv6Addresses";
 

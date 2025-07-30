@@ -13,7 +13,11 @@ import org.xbill.DNS.utils.base64;
  *     of Named Entities (DANE) Bindings for OpenPGP</a>
  */
 public class OPENPGPKEYRecord extends Record {
-  private byte[] cert;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] cert;
 
   OPENPGPKEYRecord() {}
 

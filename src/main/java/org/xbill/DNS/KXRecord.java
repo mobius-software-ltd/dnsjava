@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Record for the DNS</a>
  */
 public class KXRecord extends U16NameBase {
-  KXRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+KXRecord() {}
 
   /**
    * Creates a KX Record from the given data

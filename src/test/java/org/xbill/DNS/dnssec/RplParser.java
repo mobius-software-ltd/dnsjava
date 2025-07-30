@@ -236,6 +236,7 @@ class RplParser {
         }
       }
 
+      ma.close();
       return r;
     } catch (Exception ex) {
       if (ex.getMessage() != null && ex.getMessage().contains("expected an integer")) {

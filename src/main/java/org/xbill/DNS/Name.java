@@ -6,16 +6,18 @@ package org.xbill.DNS;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A representation of a domain name. It may either be absolute (fully qualified) or relative.
  *
  * @author Brian Wellington
  */
-@Slf4j
 public class Name implements Comparable<Name>, Serializable {
-
+  private static Logger log = LogManager.getLogger(Name.class);
+	  
   private static final long serialVersionUID = -6036624806201621219L;
 
   private static final int LABEL_NORMAL = 0;

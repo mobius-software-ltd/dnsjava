@@ -10,7 +10,12 @@ package org.xbill.DNS;
  * @author Brian Wellington
  */
 abstract class SingleCompressedNameBase extends SingleNameBase {
-  protected SingleCompressedNameBase() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+protected SingleCompressedNameBase() {}
 
   protected SingleCompressedNameBase(
       Name name, int type, int dclass, long ttl, Name singleName, String description) {

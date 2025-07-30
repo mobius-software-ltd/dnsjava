@@ -33,8 +33,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+
 import javax.crypto.spec.SecretKeySpec;
-import lombok.Getter;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -534,7 +535,6 @@ class TSIGTest {
     assertDoesNotThrow(() -> m.normalize(q).getTSIG());
   }
 
-  @Getter
   private static class ZoneBuilderAxfrHandler implements ZoneTransferIn.ZoneTransferHandler {
     private final List<Record> records = new ArrayList<>();
 
@@ -554,6 +554,10 @@ class TSIGTest {
     public void handleRecord(Record r) {
       records.add(r);
     }
+
+	public List<Record> getRecords() {
+		return records;
+	}        
   }
 
   private static class MockMessageClient {
@@ -600,7 +604,7 @@ class TSIGTest {
     private final int responseMessageCount;
     private final int signEvery;
     private final boolean skipLast;
-    @Getter private List<Message> messages;
+    private List<Message> messages;
     private int recvCalls;
 
     MockMessageServer(TSIG key, int responseMessageCount, int signEvery, boolean skipLast)
@@ -612,7 +616,12 @@ class TSIGTest {
       this.skipLast = skipLast;
     }
 
-    @Override
+    public List<Message> getMessages() {
+		return messages;
+	}
+
+
+	@Override
     void bind(SocketAddress addr) {
       // do nothing
     }

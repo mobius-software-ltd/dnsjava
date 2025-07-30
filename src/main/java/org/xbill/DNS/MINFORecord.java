@@ -14,7 +14,11 @@ import java.io.IOException;
  *     Implementation and Specification</a>
  */
 public class MINFORecord extends Record {
-  private Name responsibleAddress;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name responsibleAddress;
   private Name errorAddress;
 
   MINFORecord() {}

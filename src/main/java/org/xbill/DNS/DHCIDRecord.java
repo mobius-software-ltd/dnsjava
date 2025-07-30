@@ -14,7 +14,11 @@ import org.xbill.DNS.utils.base64;
  *     for Encoding Dynamic Host Configuration Protocol (DHCP) Information (DHCID RR)</a>
  */
 public class DHCIDRecord extends Record {
-  private byte[] data;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] data;
 
   DHCIDRecord() {}
 

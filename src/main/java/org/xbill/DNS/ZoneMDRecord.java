@@ -4,8 +4,7 @@ package org.xbill.DNS;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Getter;
-import lombok.experimental.UtilityClass;
+
 import org.xbill.DNS.utils.base16;
 
 /**
@@ -15,14 +14,15 @@ import org.xbill.DNS.utils.base16;
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc8976">RFC 8976</a>
  */
 public class ZoneMDRecord extends Record {
+  private static final long serialVersionUID = 1L;
+
   /**
    * ZONEMD Schemes.
    *
    * @see <a
    *     href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xml#zonemd-schemes">IANA
    *     registry</a>
-   */
-  @UtilityClass
+   */  
   public static class Scheme {
     /** Reserved. */
     public static final int RESERVED = 0;
@@ -63,7 +63,6 @@ public class ZoneMDRecord extends Record {
    *     href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xml#zonemd-hash-algorithms">IANA
    *     registry</a>
    */
-  @UtilityClass
   public static class Hash {
     /** Reserved. */
     public static final int RESERVED = 0;
@@ -120,7 +119,7 @@ public class ZoneMDRecord extends Record {
    * record (<a href="https://datatracker.ietf.org/doc/html/rfc1035">RFC 1035, Section 3.3.13]</a>)
    * for which the zone digest was generated.
    */
-  @Getter private long serial;
+  private long serial;
 
   /**
    * An 8-bit unsigned integer that identifies the methods by which data is collated and presented
@@ -128,7 +127,7 @@ public class ZoneMDRecord extends Record {
    *
    * @see Scheme
    */
-  @Getter private int scheme;
+  private int scheme;
 
   /**
    * An 8-bit unsigned integer that identifies the cryptographic hash algorithm used to construct
@@ -136,7 +135,7 @@ public class ZoneMDRecord extends Record {
    *
    * @see Hash
    */
-  @Getter private int hashAlgorithm;
+  private int hashAlgorithm;
 
   /**
    * A byte array containing the output of the hash algorithm. The length is determined by {@link
@@ -144,7 +143,7 @@ public class ZoneMDRecord extends Record {
    *
    * @see Hash
    */
-  @Getter private byte[] digest;
+  private byte[] digest;
 
   ZoneMDRecord() {}
 
@@ -220,4 +219,20 @@ public class ZoneMDRecord extends Record {
 
     return null;
   }
+
+  public long getSerial() {
+	return serial;
+  }
+
+  public int getScheme() {
+	return scheme;
+  }
+
+  public int getHashAlgorithm() {
+	return hashAlgorithm;
+  }
+
+  public byte[] getDigest() {
+	return digest;
+  }   
 }

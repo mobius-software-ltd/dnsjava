@@ -17,7 +17,9 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.DNSKEYRecord;
 import org.xbill.DNS.DNSSEC.Algorithm;
 import org.xbill.DNS.DNSSEC.DNSSECException;
@@ -36,8 +38,8 @@ import org.xbill.DNS.utils.base32;
  *
  * @since 3.5
  */
-@Slf4j
 final class NSEC3ValUtils {
+  private static Logger log = LogManager.getLogger(NSEC3ValUtils.class);
   public static final String NSEC3_MAX_ITERATIONS_PROPERTY_PREFIX =
       "dnsjava.dnssec.nsec3.iterations";
   private static final Name ASTERISK_LABEL = Name.fromConstantString("*");

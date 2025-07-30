@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Records</a>
  */
 public class NSAP_PTRRecord extends SingleNameBase {
-  NSAP_PTRRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+NSAP_PTRRecord() {}
 
   /**
    * Creates a new NSAP_PTR Record with the given data

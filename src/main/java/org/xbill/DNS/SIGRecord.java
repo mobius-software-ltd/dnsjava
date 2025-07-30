@@ -18,7 +18,12 @@ import java.util.Date;
  * @author Brian Wellington
  */
 public class SIGRecord extends SIGBase {
-  SIGRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+SIGRecord() {}
 
   /**
    * Creates an SIG Record from the given data

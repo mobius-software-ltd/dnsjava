@@ -12,7 +12,11 @@ import java.io.IOException;
  * @author Brian Wellington
  */
 public class UNKRecord extends Record {
-  private byte[] data;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] data;
 
   UNKRecord() {}
 

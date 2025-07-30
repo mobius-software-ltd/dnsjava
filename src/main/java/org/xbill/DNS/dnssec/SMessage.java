@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.ExtendedErrorCodeOption;
 import org.xbill.DNS.Flags;
 import org.xbill.DNS.Header;
@@ -25,8 +27,8 @@ import org.xbill.DNS.Type;
  *
  * @since 3.5
  */
-@Slf4j
 final class SMessage {
+  private Logger log = LogManager.getLogger(SMessage.class);
   private static final int NUM_SECTIONS = 3;
   private static final int MAX_FLAGS = 16;
   private static final int EXTENDED_FLAGS_BIT_OFFSET = 4;

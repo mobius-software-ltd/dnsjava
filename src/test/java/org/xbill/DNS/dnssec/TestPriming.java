@@ -121,7 +121,13 @@ class TestPriming extends TestBase {
   }
 
   static class FakeShaProvider extends Provider {
-    protected FakeShaProvider() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@SuppressWarnings("deprecation")
+	protected FakeShaProvider() {
       super("FakeShaProvider", 1, "FakeShaProvider");
       put("MessageDigest.SHA", FakeSha.class.getName());
       put("MessageDigest.SHA-256", FakeSha.class.getName());

@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class NSRecord extends SingleCompressedNameBase {
-  NSRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+NSRecord() {}
 
   /**
    * Creates a new NS Record with the given data

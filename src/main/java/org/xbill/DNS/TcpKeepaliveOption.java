@@ -14,7 +14,12 @@ import java.util.OptionalInt;
  */
 public class TcpKeepaliveOption extends EDNSOption {
 
-  /** the timeout */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/** the timeout */
   private Integer timeout;
 
   /** upper limit of the duration (exclusive) */

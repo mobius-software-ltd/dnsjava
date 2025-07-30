@@ -38,10 +38,6 @@ import org.xbill.DNS.utils.base64;
  * @author Brian Wellington
  * @author Bob Halley
  */
-@SuppressWarnings({
-  "deprecated",
-  "java:S1874", // deprecated usage of type/value
-})
 public class Tokenizer implements AutoCloseable {
 
   private static final String DEFAULT_DELIMITERS = " \t\n;()\"";

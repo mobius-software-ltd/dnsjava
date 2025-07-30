@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class CNAMERecord extends SingleCompressedNameBase {
-  CNAMERecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+CNAMERecord() {}
 
   /**
    * Creates a new CNAMERecord with the given data

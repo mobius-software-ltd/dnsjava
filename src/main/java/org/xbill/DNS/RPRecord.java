@@ -14,7 +14,11 @@ import java.io.IOException;
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc1183">RFC 1183: New DNS RR Definitions</a>
  */
 public class RPRecord extends Record {
-  private Name mailbox;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name mailbox;
   private Name textDomain;
 
   RPRecord() {}

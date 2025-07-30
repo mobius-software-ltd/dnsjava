@@ -31,15 +31,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.opentest4j.AssertionFailedError;
 import org.xbill.DNS.utils.base16;
 
-@Slf4j
 class NioTcpClientTest {
+  private static Logger log = LogManager.getLogger(NioTcpClientTest.class);
+  
   @Test
   void testCloseWithoutStart() {
     assertDoesNotThrow(NioClient::close);

@@ -10,7 +10,12 @@ import org.xbill.DNS.Name;
  * @since 3.4
  */
 public class NoSuchDomainException extends LookupFailedException {
-  public NoSuchDomainException(Name name, int type) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public NoSuchDomainException(Name name, int type) {
     this(name, type, false);
   }
 

@@ -46,7 +46,12 @@ import org.junit.jupiter.api.Test;
 
 class SingleNameBaseTest {
   private static class TestClass extends SingleNameBase {
-    TestClass() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	TestClass() {}
 
     TestClass(Name name, int type, int dclass, long ttl) {
       super(name, type, dclass, ttl);

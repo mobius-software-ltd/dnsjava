@@ -14,7 +14,11 @@ import java.io.IOException;
  *     Identifier (URI) DNS Resource Record</a>
  */
 public class URIRecord extends Record {
-  private int priority;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int priority;
   private int weight;
   private byte[] target;
 

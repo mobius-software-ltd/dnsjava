@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
 import org.xbill.DNS.Flags;
 import org.xbill.DNS.Message;
 import org.xbill.DNS.Name;
@@ -20,7 +17,6 @@ import org.xbill.DNS.Record;
  *
  * @since 3.4
  */
-@Data
 public final class LookupResult {
   /** An unmodifiable list of records that this instance wraps, may not be null but can be empty */
   private final List<Record> records;
@@ -34,7 +30,6 @@ public final class LookupResult {
   private final List<Name> aliases;
 
   /** The queries and responses that made up the result. */
-  @Getter(AccessLevel.PACKAGE)
   private final Map<Record, Message> queryResponsePairs;
 
   /**
@@ -50,7 +45,6 @@ public final class LookupResult {
    *   <li>uses an externally secured transport, e.g. with IPSec or DNS over TLS.
    * </ul>
    */
-  @Getter(AccessLevel.PACKAGE)
   private final boolean isAuthenticated;
 
   /**
@@ -106,4 +100,20 @@ public final class LookupResult {
     this.records = Collections.unmodifiableList(new ArrayList<>(records));
     this.aliases = Collections.unmodifiableList(new ArrayList<>(aliases));
   }
+
+  public Map<Record, Message> getQueryResponsePairs() {
+	return queryResponsePairs;
+  }
+
+  public boolean isAuthenticated() {
+	return isAuthenticated;
+  }
+
+  public List<Record> getRecords() {
+	return records;
+  }
+
+  public List<Name> getAliases() {
+	return aliases;
+  }    
 }

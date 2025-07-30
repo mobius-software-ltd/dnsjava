@@ -5,10 +5,11 @@ import static org.openjdk.jcstress.annotations.Expect.ACCEPTABLE;
 import static org.openjdk.jcstress.annotations.Expect.ACCEPTABLE_INTERESTING;
 import static org.openjdk.jcstress.annotations.Expect.FORBIDDEN;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.SneakyThrows;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -44,37 +45,41 @@ class ZoneStressTest {
     protected final InetAddress localhost4_2;
     protected final InetAddress localhost4_3;
 
-    @SneakyThrows
     public ZoneStressTestBase() {
-      zoneName = Name.fromConstantString("example.");
-      mxName = new Name("mx", zoneName);
-      SOARecord SOA1 =
-          new SOARecord(
-              zoneName,
-              DClass.IN,
-              3600L,
-              Name.fromConstantString("nameserver."),
-              new Name("hostadmin", zoneName),
-              1,
-              21600L,
-              7200L,
-              2160000L,
-              3600L);
-      NSRecord NS1 =
-          new NSRecord(zoneName, DClass.IN, 300L, Name.fromConstantString("nameserver1."));
-
-      localhost4_1 = InetAddress.getByName("127.0.0.1");
-      localhost4_2 = InetAddress.getByName("127.0.0.2");
-      localhost4_3 = InetAddress.getByName("127.0.0.3");
-      A1 = new ARecord(new Name("test1", zoneName), DClass.IN, 3600, localhost4_1);
-      A2_1 = new ARecord(new Name("test2", zoneName), DClass.IN, 3600, localhost4_2);
-      A2_2 = new ARecord(new Name("test2", zoneName), DClass.IN, 3600, localhost4_3);
-
-      Record[] zoneRecords =
-          new Record[] {
-            SOA1, NS1, A1, A2_1, A2_2,
-          };
-      zone = new Zone(zoneName, zoneRecords);
+      try { 
+	      zoneName = Name.fromConstantString("example.");
+	      mxName = new Name("mx", zoneName);
+	      SOARecord SOA1 =
+	          new SOARecord(
+	              zoneName,
+	              DClass.IN,
+	              3600L,
+	              Name.fromConstantString("nameserver."),
+	              new Name("hostadmin", zoneName),
+	              1,
+	              21600L,
+	              7200L,
+	              2160000L,
+	              3600L);
+	      NSRecord NS1 =
+	          new NSRecord(zoneName, DClass.IN, 300L, Name.fromConstantString("nameserver1."));
+	
+	      localhost4_1 = InetAddress.getByName("127.0.0.1");
+	      localhost4_2 = InetAddress.getByName("127.0.0.2");
+	      localhost4_3 = InetAddress.getByName("127.0.0.3");
+	      A1 = new ARecord(new Name("test1", zoneName), DClass.IN, 3600, localhost4_1);
+	      A2_1 = new ARecord(new Name("test2", zoneName), DClass.IN, 3600, localhost4_2);
+	      A2_2 = new ARecord(new Name("test2", zoneName), DClass.IN, 3600, localhost4_3);
+	
+	      Record[] zoneRecords =
+	          new Record[] {
+	            SOA1, NS1, A1, A2_1, A2_2,
+	          };
+	      zone = new Zone(zoneName, zoneRecords);
+      }
+      catch(IOException ex) {
+    	  throw new RuntimeException(ex.getMessage());
+      }
     }
   }
 
@@ -86,7 +91,12 @@ class ZoneStressTest {
   @Outcome(expect = FORBIDDEN, desc = "Other cases are forbidden.")
   @State
   public static class Write extends ZoneStressTestBase {
-    @Actor
+    
+	public Write() {
+		super();		
+	}
+
+	@Actor
     public void writer1() {
       zone.addRecord(new MXRecord(mxName, DClass.IN, 3600, 10, A1.getName()));
     }
@@ -119,7 +129,12 @@ class ZoneStressTest {
   @Outcome(expect = FORBIDDEN, desc = "Other cases are forbidden.")
   @State
   public static class AddRead extends ZoneStressTestBase {
-    @Actor
+    
+	public AddRead() {
+		super();		
+	}
+
+	@Actor
     public void writer() {
       zone.addRecord(new ARecord(A1.getName(), DClass.IN, 3600, localhost4_2));
     }
@@ -141,7 +156,12 @@ class ZoneStressTest {
   @Outcome(expect = FORBIDDEN, desc = "Other cases are forbidden.")
   @State
   public static class RemoveRead extends ZoneStressTestBase {
-    @Actor
+    
+	public RemoveRead() {
+		super();
+	}
+
+	@Actor
     public void writer() {
       zone.removeRecord(A2_1);
     }
@@ -165,9 +185,14 @@ class ZoneStressTest {
   public static class AddReadDifferentRRset extends ZoneStressTestBase {
     private final Name testName;
 
-    @SneakyThrows
     public AddReadDifferentRRset() {
-      testName = new Name("test", zoneName);
+      super();
+      try {
+    	  testName = new Name("test", zoneName);
+      }
+      catch(TextParseException ex) {
+    	  throw new RuntimeException(ex.getMessage());
+      }
     }
 
     @Actor
@@ -197,9 +222,14 @@ class ZoneStressTest {
   public static class AddNewRRsetAndIterate extends ZoneStressTestBase {
     private final Name testName;
 
-    @SneakyThrows
     public AddNewRRsetAndIterate() {
-      testName = new Name("test", zoneName);
+      super();
+      try {
+    	  testName = new Name("test", zoneName);
+      }
+      catch(TextParseException ex) {
+    	  throw new RuntimeException(ex.getMessage());
+      }
     }
 
     @Actor
@@ -227,7 +257,12 @@ class ZoneStressTest {
   @Outcome(expect = FORBIDDEN, desc = "Other cases are forbidden.")
   @State
   public static class AddToRRsetAndIterate extends ZoneStressTestBase {
-    @Actor
+    
+	public AddToRRsetAndIterate() {
+		super();
+	}
+
+	@Actor
     public void writer() {
       zone.addRecord(new ARecord(A1.getName(), DClass.IN, 3600, localhost4_2));
     }

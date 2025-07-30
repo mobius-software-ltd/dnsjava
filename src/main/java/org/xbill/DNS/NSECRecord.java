@@ -18,7 +18,11 @@ import java.io.IOException;
  *     DNS Security Extensions</a>
  */
 public class NSECRecord extends Record {
-  private Name next;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name next;
   private TypeBitmap types;
 
   NSECRecord() {}

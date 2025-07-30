@@ -130,18 +130,21 @@ class TokenizerTest {
     assertFalse(tt.isString());
     assertTrue(tt.isEOL());
     assertNull(tt.value());
-
+    t.close();
+    
     t = new Tokenizer("onlyOneIdentifier");
     tt = t.get();
     assertEquals(Tokenizer.IDENTIFIER, tt.type());
     assertEquals("onlyOneIdentifier", tt.value());
-
+    t.close();
+    
     t = new Tokenizer("identifier ;");
     tt = t.get();
     assertEquals("identifier", tt.value());
     tt = t.get();
     assertEquals(Tokenizer.EOF, tt.type());
-
+    t.close();
+    
     // some ungets
     t = new Tokenizer("identifier \nidentifier2; junk comment");
     tt = t.get(true, true);
@@ -183,7 +186,8 @@ class TokenizerTest {
 
     tt = t.get(true, true);
     assertEquals(Tokenizer.EOF, tt.type());
-
+    t.close();
+    
     t = new Tokenizer("identifier ( junk ; comment\n )");
     tt = t.get();
     assertEquals(Tokenizer.IDENTIFIER, tt.type());
@@ -240,6 +244,7 @@ class TokenizerTest {
     Tokenizer.Token tt = t.get();
 
     assertEquals(Tokenizer.EOL, tt.type());
+    t.close();
   }
 
   @Test
@@ -249,6 +254,7 @@ class TokenizerTest {
     t.unget();
     Tokenizer.Token tt = t.get();
     assertEquals(Tokenizer.EOF, tt.type());
+    t.close();
   }
 
   @Test
@@ -258,6 +264,7 @@ class TokenizerTest {
     t.unget();
     Tokenizer.Token tt = t.get();
     assertEquals(Tokenizer.EOF, tt.type());
+    t.close();
   }
 
   @Test
@@ -265,10 +272,12 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer("");
     Tokenizer.Token tt = t.get();
     assertEquals(Tokenizer.EOF, tt.type());
-
+    t.close();
+    
     t = new Tokenizer(" ");
     tt = t.get();
     assertEquals(Tokenizer.EOF, tt.type());
+    t.close();
   }
 
   @Test
@@ -277,24 +286,28 @@ class TokenizerTest {
     t.get();
     t.unget();
     assertThrows(IllegalStateException.class, t::unget);
+    t.close();
   }
 
   @Test
   void getStringIdentifier() throws IOException {
     Tokenizer t = new Tokenizer("just_an_identifier");
     assertEquals("just_an_identifier", t.getString());
+    t.close();
   }
 
   @Test
   void getStringQuoted() throws IOException {
     Tokenizer t = new Tokenizer("\"just a string\"");
     assertEquals("just a string", t.getString());
+    t.close();
   }
 
   @Test
   void getStringComment() {
     Tokenizer t = new Tokenizer("; just a comment");
     assertThrows(TextParseException.class, t::getString);
+    t.close();
   }
 
   @Test
@@ -302,9 +315,11 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer("just_an_identifier");
     String out = t.getIdentifier();
     assertEquals("just_an_identifier", out);
-
+    t.close();
+    
     t = new Tokenizer("\"just a string\"");
     assertThrows(TextParseException.class, t::getIdentifier);
+    t.close();
   }
 
   @Test
@@ -312,12 +327,15 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer((Integer.MAX_VALUE + 1L) + "");
     long out = t.getLong();
     assertEquals(Integer.MAX_VALUE + 1L, out);
-
+    t.close();
+    
     t = new Tokenizer("-10");
     assertThrows(TextParseException.class, t::getLong);
-
+    t.close();
+    
     t = new Tokenizer("19_identifier");
     assertThrows(TextParseException.class, t::getLong);
+    t.close();
   }
 
   @Test
@@ -325,12 +343,15 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer(0xABCDEF12L + "");
     long out = t.getUInt32();
     assertEquals(0xABCDEF12L, out);
-
+    t.close();
+    
     t = new Tokenizer(0x100000000L + "");
     assertThrows(TextParseException.class, t::getUInt32);
-
+    t.close();
+    
     t = new Tokenizer("-12345");
     assertThrows(TextParseException.class, t::getUInt32);
+    t.close();
   }
 
   @Test
@@ -338,12 +359,15 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer(0xABCDL + "");
     int out = t.getUInt16();
     assertEquals(0xABCDL, out);
-
+    t.close();
+    
     t = new Tokenizer(0x10000 + "");
     assertThrows(TextParseException.class, t::getUInt16);
-
+    t.close();
+    
     t = new Tokenizer("-125");
     assertThrows(TextParseException.class, t::getUInt16);
+    t.close();
   }
 
   @Test
@@ -351,42 +375,53 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer(0xCDL + "");
     int out = t.getUInt8();
     assertEquals(0xCDL, out);
-
+    t.close();
+    
     t = new Tokenizer(0x100 + "");
     assertThrows(TextParseException.class, t::getUInt8);
-
+    t.close();
+    
     t = new Tokenizer("-12");
     assertThrows(TextParseException.class, t::getUInt8);
+    t.close();
   }
 
   @Test
   void getTTL() throws IOException {
     Tokenizer t = new Tokenizer("59S");
     assertEquals(59, t.getTTL());
-
+    t.close();
+    
     t = new Tokenizer(TTL.MAX_VALUE + "");
     assertEquals(TTL.MAX_VALUE, t.getTTL());
-
+    t.close();
+    
     t = new Tokenizer((TTL.MAX_VALUE + 1L) + "");
     assertEquals(TTL.MAX_VALUE, t.getTTL());
-
+    t.close();
+    
     t = new Tokenizer("Junk");
     assertThrows(TextParseException.class, t::getTTL);
+    t.close();
   }
 
   @Test
   void getTTLLike() throws IOException {
     Tokenizer t = new Tokenizer("59S");
     assertEquals(59, t.getTTLLike());
-
+    t.close();
+    
     t = new Tokenizer(TTL.MAX_VALUE + "");
     assertEquals(TTL.MAX_VALUE, t.getTTLLike());
-
+    t.close();
+    
     t = new Tokenizer((TTL.MAX_VALUE + 1L) + "");
     assertEquals(TTL.MAX_VALUE + 1L, t.getTTLLike());
-
+    t.close();
+    
     t = new Tokenizer("Junk");
     assertThrows(TextParseException.class, t::getTTLLike);
+    t.close();
   }
 
   @Test
@@ -395,6 +430,7 @@ class TokenizerTest {
     Name exp = Name.fromString("junk.");
     Name out = t.getName(Name.root);
     assertEquals(exp, out);
+    t.close();
   }
 
   @Test
@@ -402,12 +438,14 @@ class TokenizerTest {
     Name rel = Name.fromString("you.dig");
     Tokenizer t = new Tokenizer("junk");
     assertThrows(RelativeNameException.class, () -> t.getName(rel));
+    t.close();
   }
 
   @Test
   void getNameFromEmpty() {
     Tokenizer t = new Tokenizer("");
     assertThrows(TextParseException.class, () -> t.getName(Name.root));
+    t.close();
   }
 
   @Test
@@ -419,6 +457,7 @@ class TokenizerTest {
     } catch (TextParseException e) {
       fail(e.getMessage());
     }
+    t.close();
 
     t = new Tokenizer("\n");
     try {
@@ -427,9 +466,11 @@ class TokenizerTest {
     } catch (TextParseException e) {
       fail(e.getMessage());
     }
-
+    t.close();
+    
     t = new Tokenizer("id");
     assertThrows(TextParseException.class, t::getEOL);
+    t.close();
   }
 
   @ParameterizedTest
@@ -447,6 +488,7 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer(data);
     byte[] out = t.getBase64();
     assertArrayEquals(exp, out);
+    t.close();
   }
 
   @Test
@@ -454,12 +496,14 @@ class TokenizerTest {
     // no remaining strings
     Tokenizer t = new Tokenizer("\n");
     assertNull(t.getBase64());
+    t.close();
   }
 
   @Test
   void getBase64NewlineRequired() {
     Tokenizer t = new Tokenizer("\n");
     assertThrows(TextParseException.class, () -> t.getBase64(true));
+    t.close();
   }
 
   @ParameterizedTest
@@ -467,6 +511,7 @@ class TokenizerTest {
   void getBase64InvalidEncoding(boolean required) {
     Tokenizer t = new Tokenizer("not_base64");
     assertThrows(TextParseException.class, () -> t.getBase64(required));
+    t.close();
   }
 
   @ParameterizedTest
@@ -485,6 +530,7 @@ class TokenizerTest {
     Tokenizer t = new Tokenizer(data);
     byte[] out = t.getHex();
     assertArrayEquals(exp, out);
+    t.close();
   }
 
   @Test
@@ -492,12 +538,14 @@ class TokenizerTest {
     // no remaining strings
     Tokenizer t = new Tokenizer("\n");
     assertNull(t.getHex());
+    t.close();
   }
 
   @Test
   void getHexNewlineRequired() {
     Tokenizer t = new Tokenizer("\n");
     assertThrows(TextParseException.class, () -> t.getHex(true));
+    t.close();
   }
 
   @ParameterizedTest
@@ -505,5 +553,6 @@ class TokenizerTest {
   void getHexInvalidEncoding(boolean required) {
     Tokenizer t = new Tokenizer("not_hex");
     assertThrows(TextParseException.class, () -> t.getHex(required));
+    t.close();
   }
 }

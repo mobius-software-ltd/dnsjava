@@ -28,7 +28,9 @@ import java.net.SocketAddress;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * An incoming DNS Zone Transfer. To use this class, first initialize an object, then call the run()
@@ -37,9 +39,9 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author Brian Wellington
  */
-@Slf4j
 public class ZoneTransferIn {
-
+  private Logger log = LogManager.getLogger(ZoneTransferIn.class);
+	  
   private static final int INITIALSOA = 0;
   private static final int FIRSTDATA = 1;
   private static final int IXFR_DELSOA = 2;

@@ -7,7 +7,9 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.AAAARecord;
 import org.xbill.DNS.ARecord;
 import org.xbill.DNS.ExtendedResolver;
@@ -33,8 +35,8 @@ import sun.net.spi.nameservice.NameService;
  * @author Brian Wellington
  * @author Paul Cowan (pwc21@yahoo.com)
  */
-@Slf4j
 public class DNSJavaNameService implements NameService {
+  private static Logger log = LogManager.getLogger(DNSJavaNameService.class);
   private static final String NAMESERVERS_PROPERTY = "sun.net.spi.nameservice.nameservers";
   private static final String DOMAIN_PROPERTY = "sun.net.spi.nameservice.domain";
   private static final String PREFER_V6_PROPERTY = "java.net.preferIPv6Addresses";
@@ -52,7 +54,6 @@ public class DNSJavaNameService implements NameService {
    * <p>Uses the <b>sun.net.spi.nameservice.nameservers</b>, <b>sun.net.spi.nameservice.domain</b>,
    * and <b>java.net.preferIPv6Addresses</b> properties for configuration.
    */
-  @SuppressWarnings("java:S3011")
   protected DNSJavaNameService() {
     preferV6 = Boolean.getBoolean(PREFER_V6_PROPERTY);
     String nameServers = System.getProperty(NAMESERVERS_PROPERTY);

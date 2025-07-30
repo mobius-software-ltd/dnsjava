@@ -6,7 +6,6 @@ package org.xbill.DNS;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Random;
-import lombok.SneakyThrows;
 
 /**
  * A DNS message header
@@ -276,9 +275,15 @@ public class Header implements Cloneable {
 
   /* Creates a new Header identical to the current one */
   @Override
-  @SneakyThrows(CloneNotSupportedException.class)
   public Header clone() {
-    Header h = (Header) super.clone();
+    Header h = null;
+    try {
+    	h = (Header) super.clone();
+    }
+    catch(CloneNotSupportedException ex) {
+    	
+    }
+    
     h.id = id;
     h.flags = flags;
     h.counts = new int[h.counts.length];

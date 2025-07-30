@@ -9,7 +9,12 @@ package org.xbill.DNS;
  *     the Parent via CDS/CDNSKEY</a>
  */
 public class CDSRecord extends DSRecord {
-  CDSRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+CDSRecord() {}
 
   /**
    * Creates a CDS Record from the given data

@@ -11,8 +11,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A DNS Message. A message is the basic unit of communication between the client and server of a
@@ -23,9 +24,9 @@ import lombok.extern.slf4j.Slf4j;
  * @see Section
  * @author Brian Wellington
  */
-@Slf4j
 public class Message implements Cloneable {
-
+  private static Logger log = LogManager.getLogger(Message.class);
+	  
   /** The maximum length of a message in wire format. */
   public static final int MAXLENGTH = 65535;
 
@@ -398,7 +399,6 @@ public class Message implements Cloneable {
    * @see RRset
    * @see Section
    */
-  @SuppressWarnings("java:S1119") // label
   public List<RRset> getSectionRRsets(int section) {
     Section.check(section);
     if (sections[section] == null) {
@@ -701,11 +701,17 @@ public class Message implements Cloneable {
    * @see TSIGRecord
    * @see OPTRecord
    */
+  @SuppressWarnings("unchecked")
   @Override
-  @SneakyThrows(CloneNotSupportedException.class)
-  @SuppressWarnings({"unchecked", "java:S2975"})
   public Message clone() {
-    Message m = (Message) super.clone();
+    Message m = null;
+    try {
+    	m = (Message) super.clone();
+    }
+    catch(CloneNotSupportedException ex) {
+    	
+    }
+    
     m.sections = (List<Record>[]) new List<?>[sections.length];
     for (int i = 0; i < sections.length; i++) {
       if (sections[i] != null) {
@@ -810,7 +816,7 @@ public class Message implements Cloneable {
     List<RRset> additionalSectionSets = getSectionRRsets(Section.ADDITIONAL);
     List<RRset> authoritySectionSets = getSectionRRsets(Section.AUTHORITY);
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     List<RRset>[] cleanedSection = new ArrayList[4];
     cleanedSection[Section.ANSWER] = new ArrayList<>();
     cleanedSection[Section.AUTHORITY] = new ArrayList<>();

@@ -12,7 +12,12 @@ import java.io.IOException;
  */
 public class WireParseException extends IOException {
 
-  public WireParseException() {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public WireParseException() {
     super();
   }
 

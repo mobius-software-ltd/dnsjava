@@ -17,8 +17,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.Address;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
@@ -30,8 +31,8 @@ import org.xbill.DNS.Type;
  *
  * @since 3.4
  */
-@Slf4j
 public final class HostsFileParser {
+  public static Logger log = LogManager.getLogger(HostsFileParser.class);
   private final int maxFullCacheFileSizeBytes =
       Integer.parseInt(System.getProperty("dnsjava.hostsfile.max_size_bytes", "16384"));
   private final Duration fileChangeCheckInterval =
@@ -43,7 +44,6 @@ public final class HostsFileParser {
   private final boolean clearCacheOnChange;
   private Clock clock = Clock.systemUTC();
 
-  @SuppressWarnings("java:S3077")
   private volatile Map<String, InetAddress> hostsCache;
 
   private Instant lastFileModificationCheckTime = Instant.MIN;
@@ -185,11 +185,17 @@ public final class HostsFileParser {
     }
   }
 
-  @RequiredArgsConstructor
   private static final class LineData {
     final int type;
     final byte[] address;
     final Iterable<? extends Name> names;
+	
+    public LineData(int type, byte[] address, Iterable<? extends Name> names) {
+		super();
+		this.type = type;
+		this.address = address;
+		this.names = names;
+	}        
   }
 
   private LineData parseLine(

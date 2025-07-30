@@ -15,7 +15,11 @@ import java.util.List;
  * @author Brian Wellington
  */
 abstract class TXTBase extends Record {
-  protected List<byte[]> strings;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+protected List<byte[]> strings;
 
   protected TXTBase() {}
 

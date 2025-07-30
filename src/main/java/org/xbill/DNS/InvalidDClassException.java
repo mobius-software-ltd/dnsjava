@@ -10,7 +10,12 @@ package org.xbill.DNS;
  */
 public class InvalidDClassException extends IllegalArgumentException {
 
-  public InvalidDClassException(int dclass) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public InvalidDClassException(int dclass) {
     super("Invalid DNS class: " + dclass);
   }
 }

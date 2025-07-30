@@ -49,7 +49,6 @@ jobs:
           mvn clean package -B -V \
             -DskipTests \
             -Dgpg.skip \
-            -Dcheckstyle.skip \
             -Denforcer.skip \
             -Dmaven.javadoc.skip \
             -Dspotless.check.skip=true \

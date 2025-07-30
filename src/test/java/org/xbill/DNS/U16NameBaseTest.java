@@ -46,7 +46,12 @@ import org.junit.jupiter.api.Test;
 
 class U16NameBaseTest {
   private static class TestClass extends U16NameBase {
-    TestClass() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	TestClass() {}
 
     TestClass(Name name, int type, int dclass, long ttl) {
       super(name, type, dclass, ttl);

@@ -13,7 +13,12 @@ import java.util.List;
  *     (SPF) for Authorizing Use of Domains in Email, Version 1</a>
  */
 public class SPFRecord extends TXTBase {
-  SPFRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+SPFRecord() {}
 
   /**
    * Creates a SPF Record from the given data

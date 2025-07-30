@@ -16,12 +16,9 @@ import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.xbill.DNS.io.TcpIoClient;
 
-@Slf4j
 final class NioTcpClient extends NioClient implements TcpIoClient {
   private final Queue<ChannelState> registrationQueue = new ConcurrentLinkedQueue<>();
   private final Map<ChannelKey, ChannelState> channelMap = new ConcurrentHashMap<>();
@@ -74,7 +71,6 @@ final class NioTcpClient extends NioClient implements TcpIoClient {
     channelMap.clear();
   }
 
-  @RequiredArgsConstructor
   private static class Transaction {
     private final Message query;
     private final byte[] queryData;
@@ -84,7 +80,17 @@ final class NioTcpClient extends NioClient implements TcpIoClient {
     private ByteBuffer queryDataBuffer;
     long bytesWrittenTotal = 0;
 
-    boolean send() throws IOException {
+    public Transaction(Message query, byte[] queryData, long endTime, SocketChannel channel,
+			CompletableFuture<byte[]> f) {
+		super();
+		this.query = query;
+		this.queryData = queryData;
+		this.endTime = endTime;
+		this.channel = channel;
+		this.f = f;
+	}
+
+	boolean send() throws IOException {
       // send can be invoked multiple times if the entire buffer couldn't be written at once
       if (bytesWrittenTotal == queryData.length + 2) {
         return true;
@@ -131,7 +137,6 @@ final class NioTcpClient extends NioClient implements TcpIoClient {
     }
   }
 
-  @RequiredArgsConstructor
   private class ChannelState implements KeyProcessor {
     private final SocketChannel channel;
     final Queue<Transaction> pendingTransactions = new ConcurrentLinkedQueue<>();
@@ -139,7 +144,12 @@ final class NioTcpClient extends NioClient implements TcpIoClient {
     ByteBuffer responseData = ByteBuffer.allocate(Message.MAXLENGTH);
     int readState = 0;
 
-    @Override
+    public ChannelState(SocketChannel channel) {
+		super();
+		this.channel = channel;
+	}
+
+	@Override
     public void processReadyKey(SelectionKey key) {
       if (key.isValid()) {
         if (key.isConnectable()) {
@@ -277,11 +287,46 @@ final class NioTcpClient extends NioClient implements TcpIoClient {
     }
   }
 
-  @RequiredArgsConstructor
-  @EqualsAndHashCode
   private static class ChannelKey {
     final InetSocketAddress local;
     final InetSocketAddress remote;
+  
+    public ChannelKey(InetSocketAddress local, InetSocketAddress remote) {
+		super();
+		this.local = local;
+		this.remote = remote;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((local == null) ? 0 : local.hashCode());
+		result = prime * result + ((remote == null) ? 0 : remote.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChannelKey other = (ChannelKey) obj;
+		if (local == null) {
+			if (other.local != null)
+				return false;
+		} else if (!local.equals(other.local))
+			return false;
+		if (remote == null) {
+			if (other.remote != null)
+				return false;
+		} else if (!remote.equals(other.remote))
+			return false;
+		return true;
+	}        
   }
 
   @Override

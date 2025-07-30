@@ -7,23 +7,26 @@ import static org.xbill.DNS.config.IPHlpAPI.GAA_FLAG_SKIP_FRIENDLY_NAME;
 import static org.xbill.DNS.config.IPHlpAPI.GAA_FLAG_SKIP_MULTICAST;
 import static org.xbill.DNS.config.IPHlpAPI.GAA_FLAG_SKIP_UNICAST;
 import static org.xbill.DNS.config.IPHlpAPI.INSTANCE;
-import static org.xbill.DNS.config.IPHlpAPI.IP_ADAPTER_ADDRESSES_LH;
-import static org.xbill.DNS.config.IPHlpAPI.IP_ADAPTER_DNS_SERVER_ADDRESS_XP;
-import static org.xbill.DNS.config.IPHlpAPI.IP_ADAPTER_DNS_SUFFIX;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.xbill.DNS.Name;
+import org.xbill.DNS.SimpleResolver;
+import org.xbill.DNS.config.IPHlpAPI.IP_ADAPTER_ADDRESSES_LH;
+import org.xbill.DNS.config.IPHlpAPI.IP_ADAPTER_DNS_SERVER_ADDRESS_XP;
+import org.xbill.DNS.config.IPHlpAPI.IP_ADAPTER_DNS_SUFFIX;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Win32Exception;
 import com.sun.jna.platform.win32.WinError;
 import com.sun.jna.ptr.IntByReference;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.xbill.DNS.Name;
-import org.xbill.DNS.SimpleResolver;
 
 /**
  * Resolver config provider for Windows. It reads the nameservers and search path by calling the API
@@ -32,8 +35,8 @@ import org.xbill.DNS.SimpleResolver;
  * This class requires the <a href="https://github.com/java-native-access/jna">JNA library</a> on
  * the classpath.
  */
-@Slf4j
 public class WindowsResolverConfigProvider implements ResolverConfigProvider {
+  private Logger log = LogManager.getLogger(WindowsResolverConfigProvider.class);
   private InnerWindowsResolverConfigProvider inner;
 
   public WindowsResolverConfigProvider() {
@@ -46,7 +49,6 @@ public class WindowsResolverConfigProvider implements ResolverConfigProvider {
     }
   }
 
-  @Slf4j
   private static final class InnerWindowsResolverConfigProvider extends BaseResolverConfigProvider {
     static {
       log.debug(

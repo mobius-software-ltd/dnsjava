@@ -15,11 +15,13 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.utils.base64;
 import org.xbill.DNS.utils.hexdump;
 
@@ -30,8 +32,8 @@ import org.xbill.DNS.utils.hexdump;
  * @see TSIGRecord
  * @author Brian Wellington
  */
-@Slf4j
 public class TSIG {
+  private static Logger log = LogManager.getLogger(TSIG.class);
   // https://www.iana.org/assignments/tsig-algorithm-names/tsig-algorithm-names.xml
 
   /**
@@ -975,7 +977,7 @@ public class TSIG {
     private int lastsigned;
 
     /** {@code null} or the detailed error when validation failed due to a {@link Rcode#FORMERR}. */
-    @Getter private String errorMessage;
+    private String errorMessage;
 
     /** Creates an object to verify a multiple message response */
     public StreamVerifier(TSIG tsig, TSIGRecord queryTsig) {
@@ -1082,5 +1084,9 @@ public class TSIG {
       hmac.update(messageBytes, header.length, len);
       m.tsigState = Message.TSIG_INTERMEDIATE;
     }
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}        
   }
 }

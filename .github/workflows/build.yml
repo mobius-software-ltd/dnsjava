@@ -217,7 +217,6 @@ jobs:
               --batch-mode \
               -DperformRelease=true \
               -DskipTests \
-              -Dcheckstyle.skip \
               -Dspotless.check.skip=true \
               -Danimal.sniffer.skip=true \
               deploy

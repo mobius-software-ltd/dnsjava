@@ -246,10 +246,6 @@ A `Resolver` that uses multiple ``Resolver``s to send the queries, defaulting to
 Can be configured to query the servers in a round-robin order.
 Blacklists a server if it times out.
 
-==== DohResolver
-
-Proof-of-concept DNS over HTTP resolver, e.g. to use https://dns.google/query.
-
 ==== ValidatingResolver
 
 DNSSEC validating stub resolver.
@@ -362,7 +358,6 @@ dnsjava attempts several methods until one succeeds.
 The servers can either be IP addresses or hostnames (which are resolved using Java's built in DNS support).
 - On Unix/Solaris, `/etc/resolv.conf` is parsed.
 - On Windows, if https://github.com/java-native-access/jna[JNA] is available on the classpath, the `GetAdaptersAddresses` API is used.
-- On Android the `ConnectivityManager` is used (requires initialization using `org.xbill.DNS.config.AndroidResolverConfigProvider.setContext`).
 - The `sun.net.dns.ResolverConfiguration` class is queried if enabled.
 As of Java 16 the JVM flag `--add-opens java.base/sun.net.dns=ALL-UNNAMED` (classpath) or `--add-opens java.base/sun.net.dns=org.dnsjava` (modules) is also required.
 - If available and no servers have been found yet, https://docs.oracle.com/javase/8/docs/technotes/guides/jndi/jndi-dns.html[JNDI-DNS] is used.

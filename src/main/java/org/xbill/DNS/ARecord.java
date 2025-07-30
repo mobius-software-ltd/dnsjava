@@ -15,7 +15,11 @@ import java.net.UnknownHostException;
  *     Implementation and Specification</a>
  */
 public class ARecord extends Record {
-  private int addr;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int addr;
 
   ARecord() {}
 

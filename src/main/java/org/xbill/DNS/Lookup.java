@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.hosts.HostsFileParser;
 
 /**
@@ -40,9 +40,8 @@ import org.xbill.DNS.hosts.HostsFileParser;
  * @see HostsFileParser
  * @author Brian Wellington
  */
-@Slf4j
 public final class Lookup {
-
+  private static Logger log = LogManager.getLogger(Lookup.class);
   private static Resolver defaultResolver;
   private static List<Name> defaultSearchPath = Collections.emptyList();
   private static Map<Integer, Cache> defaultCaches;
@@ -81,7 +80,7 @@ public final class Lookup {
    *
    * @since 3.4
    */
-  @Getter @Setter private HostsFileParser hostsFileParser;
+  private HostsFileParser hostsFileParser;
 
   private static final Name[] noAliases = new Name[0];
 
@@ -819,4 +818,12 @@ public final class Lookup {
     }
     throw new IllegalStateException("unknown result");
   }
+
+  public HostsFileParser getHostsFileParser() {
+	return hostsFileParser;
+  }
+
+  public void setHostsFileParser(HostsFileParser hostsFileParser) {
+	this.hostsFileParser = hostsFileParser;
+  }    
 }

@@ -13,7 +13,11 @@ import java.io.IOException;
  *     Implementation and Specification</a>
  */
 public class HINFORecord extends Record {
-  private byte[] cpu;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] cpu;
   private byte[] os;
 
   HINFORecord() {}

@@ -15,7 +15,11 @@ import org.xbill.DNS.utils.base16;
  *     Records</a>
  */
 public class NSAPRecord extends Record {
-  private byte[] address;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] address;
 
   NSAPRecord() {}
 

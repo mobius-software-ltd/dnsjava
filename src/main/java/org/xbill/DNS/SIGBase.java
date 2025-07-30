@@ -13,7 +13,11 @@ import org.xbill.DNS.utils.base64;
  * @author Brian Wellington
  */
 abstract class SIGBase extends Record {
-  protected int covered;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+protected int covered;
   protected int alg;
   protected int labels;
   protected long origttl;

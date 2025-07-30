@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Observations</a>
  */
 public class MFRecord extends SingleNameBase {
-  MFRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+MFRecord() {}
 
   /**
    * Creates a new MF Record with the given data

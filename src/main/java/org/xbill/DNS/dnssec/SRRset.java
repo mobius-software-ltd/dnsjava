@@ -4,7 +4,7 @@
 package org.xbill.DNS.dnssec;
 
 import java.util.List;
-import lombok.EqualsAndHashCode;
+
 import org.xbill.DNS.Name;
 import org.xbill.DNS.RRSIGRecord;
 import org.xbill.DNS.RRset;
@@ -15,10 +15,9 @@ import org.xbill.DNS.Record;
  *
  * @since 3.5
  */
-@EqualsAndHashCode(
-    callSuper = true,
-    of = {"securityStatus", "ownerName"})
 class SRRset extends RRset {
+  private static final long serialVersionUID = 1L;
+  
   private SecurityStatus securityStatus;
   private Name ownerName;
 
@@ -104,4 +103,32 @@ class SRRset extends RRset {
   public void setName(Name ownerName) {
     this.ownerName = ownerName;
   }
+
+  @Override
+  public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((ownerName == null) ? 0 : ownerName.hashCode());
+	result = prime * result + ((securityStatus == null) ? 0 : securityStatus.hashCode());
+	return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	SRRset other = (SRRset) obj;
+	if (ownerName == null) {
+		if (other.ownerName != null)
+			return false;
+	} else if (!ownerName.equals(other.ownerName))
+		return false;
+	if (securityStatus != other.securityStatus)
+		return false;
+	return true;
+  }    
 }

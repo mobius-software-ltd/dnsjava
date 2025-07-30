@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS;
 
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
-@SuppressWarnings({"java:S115", "java:S1168"})
 class IPAddressUtils {
   static final int IPv4 = 1;
   static final int IPv6 = 2;

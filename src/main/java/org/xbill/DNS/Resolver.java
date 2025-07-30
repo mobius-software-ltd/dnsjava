@@ -232,6 +232,7 @@ public interface Resolver {
    * @return An identifier, which is also a parameter in the callback
    * @deprecated Use {@link #sendAsync(Message)}
    */
+  @SuppressWarnings("deprecation")
   @Deprecated
   default Object sendAsync(Message query, ResolverListener listener) {
     final Object id = new Object();

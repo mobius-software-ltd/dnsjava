@@ -11,7 +11,12 @@ import java.security.PublicKey;
  *     the Parent via CDS/CDNSKEY</a>
  */
 public class CDNSKEYRecord extends DNSKEYRecord {
-  CDNSKEYRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+CDNSKEYRecord() {}
 
   /**
    * Creates a CDNSKEY Record from the given data

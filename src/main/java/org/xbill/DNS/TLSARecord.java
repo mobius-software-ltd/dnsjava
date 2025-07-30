@@ -14,7 +14,12 @@ import org.xbill.DNS.utils.base16;
  *     Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA</a>
  */
 public class TLSARecord extends Record {
-  public static class CertificateUsage {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public static class CertificateUsage {
     private CertificateUsage() {}
 
     public static final int CA_CONSTRAINT = 0;

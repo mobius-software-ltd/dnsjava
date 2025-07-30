@@ -1402,7 +1402,6 @@ class LookupSessionTest {
     return cname(name(name), name(target));
   }
 
-  @SuppressWarnings("SameParameterValue")
   private static CNAMERecord cname(Name name, String target) {
     return cname(name, name(target));
   }
@@ -1415,7 +1414,6 @@ class LookupSessionTest {
     return dname(name(name), name(target));
   }
 
-  @SuppressWarnings("SameParameterValue")
   private static DNAMERecord dname(Name name, String target) {
     return dname(name, name(target));
   }

@@ -13,8 +13,6 @@ import static org.xbill.DNS.SetResponseType.UNKNOWN;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 /**
  * The Response from a query to {@link Cache#lookupRecords(Name, int, int)} or {@link
@@ -34,7 +32,6 @@ public class SetResponse {
 
   private final SetResponseType type;
 
-  @Getter(AccessLevel.PACKAGE)
   private boolean isAuthenticated;
 
   private List<RRset> data;
@@ -129,6 +126,10 @@ public class SetResponse {
   /** Was the query successful? */
   public boolean isSuccessful() {
     return type == SUCCESSFUL;
+  }
+
+  public boolean isAuthenticated() {
+	return isAuthenticated;
   }
 
   /** If the query was successful, return the answers */

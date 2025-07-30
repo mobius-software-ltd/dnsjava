@@ -13,7 +13,12 @@ import java.io.IOException;
  *     Authority Authorization (CAA) Resource Record</a>
  */
 public class CAARecord extends Record {
-  public static class Flags {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public static class Flags {
     private Flags() {}
 
     public static final int IssuerCritical = 128;

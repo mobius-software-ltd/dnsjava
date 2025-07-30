@@ -15,7 +15,11 @@ import java.text.NumberFormat;
  *     Location Information in the Domain Name System</a>
  */
 public class LOCRecord extends Record {
-  private static final NumberFormat w2;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private static final NumberFormat w2;
   private static final NumberFormat w3;
   private long size;
   private long hPrecision;

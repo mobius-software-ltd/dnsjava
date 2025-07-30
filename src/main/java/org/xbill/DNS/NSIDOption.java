@@ -12,7 +12,12 @@ package org.xbill.DNS;
  *     (NSID) Option</a>
  */
 public class NSIDOption extends GenericEDNSOption {
-  NSIDOption() {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+NSIDOption() {
     super(EDNSOption.Code.NSID);
   }
 

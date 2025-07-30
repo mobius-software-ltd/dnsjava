@@ -17,7 +17,12 @@ import java.security.PublicKey;
  */
 public class DNSKEYRecord extends KEYBase {
 
-  public static class Protocol {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public static class Protocol {
     private Protocol() {}
 
     /** Key will be used for DNSSEC */

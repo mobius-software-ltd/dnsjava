@@ -12,7 +12,6 @@ import java.security.Security;
 import java.security.spec.ECPrivateKeySpec;
 import java.time.Instant;
 import java.util.Base64;
-import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-@Slf4j
 class DnssecEcDsaTest {
   private final Name exampleNet = Name.fromConstantString("example.net.");
 

@@ -7,7 +7,6 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import lombok.experimental.UtilityClass;
 
 /**
  * Routines dealing with IP addresses. Includes functions similar to those in the
@@ -15,7 +14,6 @@ import lombok.experimental.UtilityClass;
  *
  * @author Brian Wellington
  */
-@UtilityClass
 public final class Address {
 
   public static final int IPv4 = 1;

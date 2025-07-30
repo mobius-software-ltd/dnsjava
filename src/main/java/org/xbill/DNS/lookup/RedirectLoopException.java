@@ -7,7 +7,12 @@ package org.xbill.DNS.lookup;
  * @since 3.6
  */
 public class RedirectLoopException extends RedirectOverflowException {
-  public RedirectLoopException(int maxRedirects) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public RedirectLoopException(int maxRedirects) {
     super("Detected a redirect loop", maxRedirects);
   }
 }

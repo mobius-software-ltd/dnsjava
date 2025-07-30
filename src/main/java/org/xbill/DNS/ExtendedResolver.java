@@ -19,8 +19,9 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * An implementation of {@link Resolver} that can send queries to multiple servers, sending the
@@ -29,8 +30,8 @@ import lombok.extern.slf4j.Slf4j;
  * @see Resolver
  * @author Brian Wellington
  */
-@Slf4j
 public class ExtendedResolver implements Resolver {
+  private static Logger log = LogManager.getLogger(ExtendedResolver.class);
   private static class Resolution {
     private final Message query;
     private final int[] attempts;
@@ -136,7 +137,6 @@ public class ExtendedResolver implements Resolver {
     }
   }
 
-  @RequiredArgsConstructor
   private static class ResolverEntry {
     private final Resolver resolver;
     private final AtomicInteger failures;
@@ -144,8 +144,16 @@ public class ExtendedResolver implements Resolver {
     ResolverEntry(Resolver r) {
       this(r, new AtomicInteger(0));
     }
+    
+    public ResolverEntry(Resolver resolver, AtomicInteger failures) {
+		super();
+		this.resolver = resolver;
+		this.failures = failures;
+	}
 
-    @Override
+
+
+	@Override
     public String toString() {
       return resolver.toString();
     }

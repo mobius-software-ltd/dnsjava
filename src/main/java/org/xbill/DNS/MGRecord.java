@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class MGRecord extends SingleNameBase {
-  MGRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+MGRecord() {}
 
   /**
    * Creates a new MG Record with the given data

@@ -10,7 +10,12 @@ package org.xbill.DNS;
  * @author Brian Wellington
  */
 class EmptyRecord extends Record {
-  EmptyRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+EmptyRecord() {}
 
   @Override
   protected void rrFromWire(DNSInput in) {

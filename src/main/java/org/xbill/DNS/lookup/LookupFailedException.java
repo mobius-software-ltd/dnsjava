@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS.lookup;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.Type;
 
@@ -12,10 +10,10 @@ import org.xbill.DNS.Type;
  * @since 3.4
  */
 public class LookupFailedException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
   private final Name name;
   private final int type;
 
-  @Getter(AccessLevel.PACKAGE)
   private final boolean isAuthenticated;
 
   public LookupFailedException() {
@@ -70,4 +68,8 @@ public class LookupFailedException extends RuntimeException {
   public int getType() {
     return type;
   }
+
+  public boolean isAuthenticated() {
+	return isAuthenticated;
+  }    
 }

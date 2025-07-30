@@ -23,7 +23,12 @@ import org.xbill.DNS.utils.base32;
  */
 public class NSEC3Record extends Record {
 
-  public static class Flags {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public static class Flags {
     /** NSEC3 flags identifiers. */
     private Flags() {}
 

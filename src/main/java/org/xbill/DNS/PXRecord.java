@@ -13,7 +13,11 @@ import java.io.IOException;
  *     Distribute MIXER Conformant Global Address Mapping (MCGAM)</a>
  */
 public class PXRecord extends Record {
-  private int preference;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int preference;
   private Name map822;
   private Name mapX400;
 

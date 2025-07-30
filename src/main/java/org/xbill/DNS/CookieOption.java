@@ -14,7 +14,12 @@ import org.xbill.DNS.utils.base16;
  */
 public class CookieOption extends EDNSOption {
 
-  /** client cookie */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/** client cookie */
   private byte[] clientCookie;
 
   /** server cookie */

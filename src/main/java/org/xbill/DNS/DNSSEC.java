@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Getter;
 
 /**
  * Constants and methods relating to DNSSEC.
@@ -359,7 +358,9 @@ public class DNSSEC {
 
   /** A DNSSEC exception. */
   public static class DNSSECException extends Exception {
-    DNSSECException(String message, Throwable cause) {
+    private static final long serialVersionUID = 1L;
+
+	DNSSECException(String message, Throwable cause) {
       super(message, cause);
     }
 
@@ -374,24 +375,34 @@ public class DNSSEC {
 
   /** An algorithm is unsupported by this DNSSEC implementation. */
   public static class UnsupportedAlgorithmException extends DNSSECException {
-    UnsupportedAlgorithmException(int alg) {
+    private static final long serialVersionUID = 1L;
+
+	UnsupportedAlgorithmException(int alg) {
       super("Unsupported algorithm: " + alg);
     }
   }
 
   /** The {@link DNSKEYRecord} used for the validation is not a zone signing key. */
   public static class InvalidDnskeyException extends DNSSECException {
-    @Getter private final int edeCode;
+    private static final long serialVersionUID = 1L;
+	
+    private final int edeCode;
 
     InvalidDnskeyException(DNSKEYRecord dnskey, String message, int edeCode) {
       super("DNSKEY " + dnskey.getName() + " is invalid, " + message);
       this.edeCode = edeCode;
     }
+
+	public int getEdeCode() {
+		return edeCode;
+	}        
   }
 
   /** The cryptographic data in a DNSSEC key is malformed. */
   public static class MalformedKeyException extends DNSSECException {
-    MalformedKeyException(String message) {
+    private static final long serialVersionUID = 1L;
+
+	MalformedKeyException(String message) {
       super(message);
     }
 
@@ -402,7 +413,9 @@ public class DNSSEC {
 
   /** A DNSSEC verification failed because fields in the DNSKEY and RRSIG records do not match. */
   public static class KeyMismatchException extends DNSSECException {
-    KeyMismatchException(KEYBase key, SIGBase sig) {
+    private static final long serialVersionUID = 1L;
+
+	KeyMismatchException(KEYBase key, SIGBase sig) {
       super(
           "key "
               + key.getName()
@@ -422,6 +435,8 @@ public class DNSSEC {
 
   /** A DNSSEC verification failed because the signature has expired. */
   public static class SignatureExpiredException extends DNSSECException {
+    private static final long serialVersionUID = 1L;
+	
     private final Instant when;
     private final Instant now;
 
@@ -444,6 +459,8 @@ public class DNSSEC {
 
   /** A DNSSEC verification failed because the signature has not yet become valid. */
   public static class SignatureNotYetValidException extends DNSSECException {
+    private static final long serialVersionUID = 1L;
+	
     private final Instant when;
     private final Instant now;
 
@@ -466,7 +483,9 @@ public class DNSSEC {
 
   /** A DNSSEC verification failed because the cryptographic signature verification failed. */
   public static class SignatureVerificationException extends DNSSECException {
-    SignatureVerificationException(Throwable inner) {
+    private static final long serialVersionUID = 1L;
+
+	SignatureVerificationException(Throwable inner) {
       super("Signature verification failed", inner);
     }
 
@@ -477,14 +496,18 @@ public class DNSSEC {
 
   /** The key data provided is inconsistent. */
   public static class IncompatibleKeyException extends IllegalArgumentException {
-    IncompatibleKeyException() {
+    private static final long serialVersionUID = 1L;
+
+	IncompatibleKeyException() {
       super("incompatible keys");
     }
   }
 
   /** No signature was found. */
   public static class NoSignatureException extends DNSSECException {
-    NoSignatureException() {
+    private static final long serialVersionUID = 1L;
+
+	NoSignatureException() {
       super("no signature found");
     }
   }

@@ -20,8 +20,17 @@ import org.xbill.DNS.utils.base16;
  */
 public class APLRecord extends Record {
 
-  public static class Element implements Serializable {
-    public final int family;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public static class Element implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public final int family;
     public final boolean negative;
     public final int prefixLength;
     public final Object address;

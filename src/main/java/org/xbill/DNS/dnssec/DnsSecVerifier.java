@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.DClass;
 import org.xbill.DNS.DNSKEYRecord;
 import org.xbill.DNS.DNSSEC;
@@ -30,8 +32,8 @@ import org.xbill.DNS.Type;
  *
  * @since 3.5
  */
-@Slf4j
 final class DnsSecVerifier {
+  public static Logger log = LogManager.getLogger(DnsSecVerifier.class);
   public static final String MAX_VALIDATE_RRSIGS_PROPERTY = "dnsjava.dnssec.max_validate_rrsigs";
   private final ValUtils valUtils;
   private int maxValidateRRsigs;

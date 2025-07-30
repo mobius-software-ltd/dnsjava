@@ -20,7 +20,11 @@ import org.xbill.DNS.utils.base64;
  * @author Brian Wellington
  */
 public class TSIGRecord extends Record {
-  private Name alg;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name alg;
   private Instant timeSigned;
   private Duration fudge;
   private byte[] signature;

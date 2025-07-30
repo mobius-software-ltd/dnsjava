@@ -14,7 +14,6 @@ import java.nio.channels.SocketChannel;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-@SuppressWarnings("resource")
 class TCPClient implements AutoCloseable {
   private final long startTime;
   private final Duration timeout;

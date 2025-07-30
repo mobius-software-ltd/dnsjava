@@ -15,7 +15,11 @@ import java.io.IOException;
  *     the location of services (DNS SRV)</a>
  */
 public class SRVRecord extends Record {
-  private int priority;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int priority;
   private int weight;
   private int port;
   private Name target;

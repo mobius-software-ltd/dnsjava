@@ -16,11 +16,9 @@ import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.xbill.DNS.io.UdpIoClient;
 
-@Slf4j
 final class NioUdpClient extends NioClient implements UdpIoClient {
   private final int ephemeralStart;
   private final int ephemeralRange;
@@ -81,7 +79,6 @@ final class NioUdpClient extends NioClient implements UdpIoClient {
     }
   }
 
-  @RequiredArgsConstructor
   private class Transaction implements KeyProcessor {
     private final int id;
     private final byte[] data;
@@ -90,7 +87,18 @@ final class NioUdpClient extends NioClient implements UdpIoClient {
     private final DatagramChannel channel;
     private final CompletableFuture<byte[]> f;
 
-    void send() throws IOException {
+    public Transaction(int id, byte[] data, int max, long endTime, DatagramChannel channel,
+			CompletableFuture<byte[]> f) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.max = max;
+		this.endTime = endTime;
+		this.channel = channel;
+		this.f = f;
+	}
+
+	void send() throws IOException {
       ByteBuffer buffer = ByteBuffer.wrap(data);
       verboseLog(
           "UDP write: transaction id=" + id,

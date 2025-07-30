@@ -13,7 +13,11 @@ import java.io.IOException;
  *     Implementation and Specification</a>
  */
 public class SOARecord extends Record {
-  private Name host;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name host;
   private Name admin;
   private long serial;
   private long refresh;

@@ -13,7 +13,11 @@ import java.io.IOException;
  *     Implementation and Specification</a>
  */
 public class NULLRecord extends Record {
-  private byte[] data;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private byte[] data;
 
   NULLRecord() {}
 

@@ -14,7 +14,12 @@ import org.xbill.DNS.utils.base16;
  *     Publish Secure Shell (SSH) Key Fingerprints</a>
  */
 public class SSHFPRecord extends Record {
-  public static class Algorithm {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public static class Algorithm {
     private Algorithm() {}
 
     public static final int RSA = 1;

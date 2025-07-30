@@ -5,9 +5,9 @@
 package org.xbill.DNS.dnssec;
 
 import java.util.List;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.DClass;
 import org.xbill.DNS.ExtendedErrorCodeOption;
 import org.xbill.DNS.Name;
@@ -19,13 +19,12 @@ import org.xbill.DNS.Type;
  *
  * @since 3.5
  */
-@Slf4j
-@EqualsAndHashCode(
-    callSuper = true,
-    of = {"edeReason", "badReason", "isEmpty"})
 final class KeyEntry extends SRRset {
+  private static final long serialVersionUID = 1L;
+	
+  private Logger log = LogManager.getLogger(KeyEntry.class);
   /** List of algorithms signalled, may be {@code null}. */
-  @Getter private final List<Integer> algo;
+  private final List<Integer> algo;
 
   private int edeReason = -1;
   private String badReason;
@@ -133,7 +132,11 @@ final class KeyEntry extends SRRset {
     return !this.isEmpty && this.getSecurityStatus() == SecurityStatus.SECURE;
   }
 
-  /**
+  public List<Integer> getAlgo() {
+	return algo;
+  }
+
+/**
    * Sets the reason why this key entry is bad.
    *
    * @param reason The reason why this key entry is bad.
@@ -203,5 +206,43 @@ final class KeyEntry extends SRRset {
     }
 
     return null;
+  }
+
+  @Override
+  public int hashCode() {
+	final int prime = super.hashCode();
+	int result = 1;
+	result = prime * result + ((algo == null) ? 0 : algo.hashCode());
+	result = prime * result + ((badReason == null) ? 0 : badReason.hashCode());
+	result = prime * result + edeReason;
+	result = prime * result + (isEmpty ? 1231 : 1237);
+	return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	KeyEntry other = (KeyEntry) obj;
+	if (algo == null) {
+		if (other.algo != null)
+			return false;
+	} else if (!algo.equals(other.algo))
+		return false;
+	if (badReason == null) {
+		if (other.badReason != null)
+			return false;
+	} else if (!badReason.equals(other.badReason))
+		return false;
+	if (edeReason != other.edeReason)
+		return false;
+	if (isEmpty != other.isEmpty)
+		return false;
+	
+	return super.equals(obj);
   }
 }

@@ -11,7 +11,12 @@ import org.xbill.DNS.Name;
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc2136#section-2">RFC 2136</a>
  */
 public class NoSuchRRSetException extends LookupFailedException {
-  public NoSuchRRSetException(Name name, int type) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public NoSuchRRSetException(Name name, int type) {
     this(name, type, false);
   }
 

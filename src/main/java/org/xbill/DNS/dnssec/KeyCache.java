@@ -55,7 +55,12 @@ final class KeyCache {
     this.cache =
         Collections.synchronizedMap(
             new LinkedHashMap<String, CacheEntry>() {
-              @Override
+              /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+			@Override
               protected boolean removeEldestEntry(Map.Entry<String, CacheEntry> eldest) {
                 return size() >= KeyCache.this.maxCacheSize;
               }

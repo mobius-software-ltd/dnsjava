@@ -13,7 +13,12 @@ package org.xbill.DNS;
  *     Resource Record for Domains That Accept No Mail</a>
  */
 public class MXRecord extends U16NameBase {
-  MXRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+MXRecord() {}
 
   /**
    * Creates an MX Record from the given data

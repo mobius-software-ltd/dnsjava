@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS.lookup;
 
-import lombok.Getter;
-
 /**
  * Thrown if the lookup results in too many CNAME and/or DNAME indirections. This would be the case
  * for example if two CNAME records point to each other.
@@ -10,7 +8,9 @@ import lombok.Getter;
  * @since 3.4
  */
 public class RedirectOverflowException extends LookupFailedException {
-  @Getter private final int maxRedirects;
+  private static final long serialVersionUID = 1L;
+
+  private final int maxRedirects;
 
   /**
    * Do not use.
@@ -37,4 +37,8 @@ public class RedirectOverflowException extends LookupFailedException {
     super(message);
     this.maxRedirects = maxRedirects;
   }
+
+  public int getMaxRedirects() {
+	return maxRedirects;
+  }    
 }

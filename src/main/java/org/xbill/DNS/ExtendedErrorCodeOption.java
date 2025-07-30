@@ -3,7 +3,6 @@ package org.xbill.DNS;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import lombok.Getter;
 
 /**
  * EDNS option to provide additional information about the cause of DNS errors (RFC 8914).
@@ -11,6 +10,8 @@ import lombok.Getter;
  * @since 3.4
  */
 public class ExtendedErrorCodeOption extends EDNSOption {
+
+  private static final long serialVersionUID = 1L;
 
   /** The error in question falls into a category that does not match known extended error codes. */
   public static final int OTHER = 0;
@@ -195,8 +196,8 @@ public class ExtendedErrorCodeOption extends EDNSOption {
    */
   public static final int SYNTHESIZED = 29;
 
-  @Getter private int errorCode;
-  @Getter private String text;
+  private int errorCode;
+  private String text;
 
   private static final Mnemonic codes =
       new Mnemonic("EDNS Extended Error Codes", Mnemonic.CASE_SENSITIVE);
@@ -234,6 +235,14 @@ public class ExtendedErrorCodeOption extends EDNSOption {
     codes.add(UNSUPPORTED_NSEC3_ITERATIONS_VALUE, "UNSUPPORTED_NSEC3_ITERATIONS_VALUE");
     codes.add(UNABLE_TO_CONFORM_TO_POLICY, "UNABLE_TO_CONFORM_TO_POLICY");
     codes.add(SYNTHESIZED, "SYNTHESIZED");
+  }
+
+  public int getErrorCode() {
+	return errorCode;
+  }
+
+  public String getText() {
+	return text;
   }
 
   /**

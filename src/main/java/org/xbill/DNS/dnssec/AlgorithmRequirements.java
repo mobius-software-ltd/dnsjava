@@ -5,7 +5,7 @@ package org.xbill.DNS.dnssec;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
+
 import org.xbill.DNS.DSRecord;
 import org.xbill.DNS.RRset;
 import org.xbill.DNS.Record;
@@ -31,7 +31,7 @@ class AlgorithmRequirements {
   private final short[] needs = new short[MAX_ALGORITHMS];
 
   /** The number of entries in {@link #needs} that are unfulfilled */
-  @Getter private int num;
+  private int num;
 
   /**
    * Initialize this instance from a signalled algo list.
@@ -133,4 +133,8 @@ class AlgorithmRequirements {
 
     return 0;
   }
+
+  public int getNum() {
+	return num;
+  }    
 }

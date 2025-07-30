@@ -17,7 +17,11 @@ import org.xbill.DNS.utils.base64;
  *     for DNS (TKEY RR)</a>
  */
 public class TKEYRecord extends Record {
-  private Name alg;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private Name alg;
   private Instant timeInception;
   private Instant timeExpire;
   private int mode, error;

@@ -2,7 +2,12 @@
 package org.xbill.DNS.config;
 
 public class InitializationException extends Exception {
-  InitializationException(String message) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+InitializationException(String message) {
     super(message);
   }
 

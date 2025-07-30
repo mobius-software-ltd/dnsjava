@@ -20,6 +20,11 @@ import org.xbill.DNS.utils.base16;
 public class DLVRecord extends Record {
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
    * SHA1 digest ID for DLV records.
    *
    * @deprecated use {@link DNSSEC.Digest#SHA1}

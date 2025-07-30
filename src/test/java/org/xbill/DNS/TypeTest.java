@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class TypeTest {
@@ -93,11 +93,12 @@ class TypeTest {
   private static final String MYTXTName = "MYTXT";
 
   private static class MYTXTRecord extends TXTBase {
-    MYTXTRecord() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public MYTXTRecord(Name name, int dclass, long ttl, List<String> strings) {
-      super(name, MYTXT, dclass, ttl, strings);
-    }
+	MYTXTRecord() {}
 
     public MYTXTRecord(Name name, int dclass, long ttl, String string) {
       super(name, MYTXT, dclass, ttl, string);
@@ -105,15 +106,12 @@ class TypeTest {
   }
 
   private static class TXTRecordReplacement extends TXTBase {
-    TXTRecordReplacement() {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public TXTRecordReplacement(Name name, int dclass, long ttl, List<String> strings) {
-      super(name, Type.TXT, dclass, ttl, strings);
-    }
-
-    public TXTRecordReplacement(Name name, int dclass, long ttl, String string) {
-      super(name, Type.TXT, dclass, ttl, string);
-    }
+	TXTRecordReplacement() {}
   }
 
   @Test

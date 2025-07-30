@@ -10,7 +10,12 @@ import java.util.List;
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc9460">RFC 9460</a>
  */
 public class SVCBRecord extends SVCBBase {
-  SVCBRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+SVCBRecord() {}
 
   public SVCBRecord(
       Name name, int dclass, long ttl, int priority, Name domain, List<ParameterBase> params) {

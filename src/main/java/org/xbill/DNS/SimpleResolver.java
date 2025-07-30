@@ -14,9 +14,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.io.DefaultIoClientFactory;
 import org.xbill.DNS.io.IoClientFactory;
 
@@ -29,9 +29,9 @@ import org.xbill.DNS.io.IoClientFactory;
  * @see OPTRecord
  * @author Brian Wellington
  */
-@Slf4j
 public class SimpleResolver implements Resolver {
-
+  private static Logger log = LogManager.getLogger(SimpleResolver.class);
+	  
   /** The default port to send queries to */
   public static final int DEFAULT_PORT = 53;
 
@@ -53,7 +53,7 @@ public class SimpleResolver implements Resolver {
    *
    * @since 3.6
    */
-  @Getter @Setter private IoClientFactory ioClientFactory = new DefaultIoClientFactory();
+  private IoClientFactory ioClientFactory = new DefaultIoClientFactory();
 
   private static InetSocketAddress defaultResolver =
       new InetSocketAddress(InetAddress.getLoopbackAddress(), DEFAULT_PORT);
@@ -496,7 +496,15 @@ public class SimpleResolver implements Resolver {
         executor);
   }
 
-  private Message sendAXFR(Message query) throws IOException {
+  public IoClientFactory getIoClientFactory() {
+	return ioClientFactory;
+  }
+
+  public void setIoClientFactory(IoClientFactory ioClientFactory) {
+	this.ioClientFactory = ioClientFactory;
+  }
+
+private Message sendAXFR(Message query) throws IOException {
     Name qname = query.getQuestion().getName();
     ZoneTransferIn xfrin = ZoneTransferIn.newAXFR(qname, address, tsig);
     xfrin.setTimeout(timeoutValue);

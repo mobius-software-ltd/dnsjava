@@ -11,7 +11,12 @@ package org.xbill.DNS;
  * @author Brian Wellington
  */
 public class SMIMEARecord extends TLSARecord {
-  SMIMEARecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+SMIMEARecord() {}
 
   /**
    * Creates an SMIMEA Record from the given data

@@ -11,9 +11,9 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
 import java.util.function.Consumer;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.utils.hexdump;
 
 /**
@@ -33,9 +33,8 @@ import org.xbill.DNS.utils.hexdump;
  *
  * @since 3.4
  */
-@Slf4j
-@NoArgsConstructor(access = AccessLevel.NONE)
 public abstract class NioClient {
+  protected static Logger log = LogManager.getLogger(NioClient.class);
   static final String SELECTOR_TIMEOUT_PROPERTY = "dnsjava.nio.selector_timeout";
   static final String REGISTER_SHUTDOWN_HOOK_PROPERTY = "dnsjava.nio.register_shutdown_hook";
   private static final Object NIO_CLIENT_LOCK = new Object();
@@ -55,6 +54,10 @@ public abstract class NioClient {
   private static volatile boolean run;
   private static volatile boolean closeDone;
 
+  protected NioClient() {
+	  
+  }
+  
   interface KeyProcessor {
     void processReadyKey(SelectionKey key);
   }

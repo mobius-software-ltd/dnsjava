@@ -3,8 +3,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
     xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+	<parent>
+		<groupId>com.mobius-software</groupId>
+		<artifactId>mobius-public-parent</artifactId>
+		<version>1.0.12</version>
+	</parent>
+	
     <modelVersion>4.0.0</modelVersion>
-    <groupId>dnsjava</groupId>
     <artifactId>dnsjava</artifactId>
     <packaging>bundle</packaging>
     <version>3.6.4-SNAPSHOT</version>
@@ -49,11 +54,10 @@
         <maven.compiler.showCompilationChanges>true</maven.compiler.showCompilationChanges>
         <maven.compiler.createMissingPackageInfoClass>false</maven.compiler.createMissingPackageInfoClass>
 
-        <org.junit.version>5.13.1</org.junit.version>
+        <log4j2.version>2.19.0</log4j2.version>
+		<org.junit.version>5.13.1</org.junit.version>
         <!-- Stay on 4.x for Java 8 compatibility. Newer versions are used for Java 11+ builds -->
         <mockito.version>4.11.0</mockito.version>
-        <slf4j.version>1.7.36</slf4j.version>
-        <lombok.version>1.18.38</lombok.version>
         <jna.version>5.17.0</jna.version>
         <bouncycastle.version>1.81</bouncycastle.version>
         <vertx.version>4.5.16</vertx.version>
@@ -62,7 +66,6 @@
         <spotless.version>2.30.0</spotless.version>
 
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <delombok.output>${project.build.directory}/delombok</delombok.output>
     </properties>
 
     <build>
@@ -163,12 +166,7 @@
                         <arg>-Xlint:all,-serial,-processing</arg>
                         <arg>-Xpkginfo:always</arg>
                     </compilerArgs>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
+                    <annotationProcessorPaths>                        
                         <path>
                             <groupId>org.openjdk.jcstress</groupId>
                             <artifactId>jcstress-core</artifactId>
@@ -198,27 +196,23 @@
                 <extensions>true</extensions>
                 <configuration>
                     <niceManifest>true</niceManifest>
-                    <excludeDependencies>lombok</excludeDependencies>
                     <instructions>
                         <Bundle-Name>dnsjava</Bundle-Name>
                         <Bundle-Description>dnsjava is an implementation of DNS in Java</Bundle-Description>
                         <Bundle-SymbolicName>org.xbill.dns</Bundle-SymbolicName>
                         <Bundle-DocURL>https://javadoc.io/doc/dnsjava/dnsjava</Bundle-DocURL>
                         <_noclassforname>true</_noclassforname>
-                        <_donotcopy>android|sun</_donotcopy>
+                        <_donotcopy>sun</_donotcopy>
                         <_nouses>true</_nouses>
                         <_noee>true</_noee>
                         <Export-Package>
                             org.xbill.DNS.*
                         </Export-Package>
-                        <Private-Package>!android.*,!sun.*,.</Private-Package>
+                        <Private-Package>!sun.*,.</Private-Package>
                         <Import-Package>
                             !org.xbill.DNS*,
                             !sun.*,
-                            !lombok,
-                            !android.*,
                             javax.naming.*;resolution:=optional,
-                            org.slf4j;version="[1.7,3)",
                             com.sun.jna.*;resolution:=optional;version="[5,6)",
                             *
                         </Import-Package>
@@ -236,34 +230,7 @@
                         <Multi-Release>true</Multi-Release>
                     </instructions>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.18.20.0</version>
-                <configuration>
-                    <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-                    <addOutputDirectory>false</addOutputDirectory>
-                    <outputDirectory>${delombok.output}</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                        <version>${lombok.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+            </plugin>            
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -271,12 +238,11 @@
                 <version>3.11.2</version>
                 <configuration>
                     <source>${target.jdk}</source>
-                    <sourcepath>${delombok.output}</sourcepath>
                     <debug>true</debug>
                     <windowtitle>dnsjava documentation</windowtitle>
                     <footer/>
                     <doclint>none</doclint>
-                    <excludePackageNames>android,android.*,sun.*</excludePackageNames>
+                    <excludePackageNames>sun.*</excludePackageNames>
                 </configuration>
             </plugin>
 
@@ -333,146 +299,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.siom79.japicmp</groupId>
-                <artifactId>japicmp-maven-plugin</artifactId>
-                <version>0.23.1</version>
-                <configuration>
-                    <newVersion>
-                        <file>
-                            <path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
-                        </file>
-                    </newVersion>
-                    <parameter>
-                        <onlyModified>true</onlyModified>
-                        <accessModifier>public</accessModifier>
-                        <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
-                        <breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
-                        <breakBuildOnSourceIncompatibleModifications>true</breakBuildOnSourceIncompatibleModifications>
-                        <excludes>
-                            <!-- Ignore classes that we need for compilation only -->
-                            <exclude>android</exclude>
-                            <exclude>sun</exclude>
-                            <!-- internal API detected as public -->
-                            <exclude>org.xbill.DNS.config.IPHlpAPI</exclude>
-                            <exclude>org.xbill.DNS.spi.DnsjavaInetAddressResolver</exclude>
-                            <exclude>org.xbill.DNS.spi.DNSJavaNameService</exclude>
-                            <exclude>org.xbill.DNS.spi.DNSJavaNameServiceDescriptor</exclude>
-                            <!-- Not available before Java 18 -->
-                            <exclude>org.xbill.DNS.spi.DnsjavaInetAddressResolver</exclude>
-                            <exclude>org.xbill.DNS.spi.DnsjavaInetAddressResolverProvider</exclude>
-                        </excludes>
-                        <overrideCompatibilityChangeParameters>
-                            <overrideCompatibilityChangeParameter>
-                                <compatibilityChange>INTERFACE_ADDED</compatibilityChange>
-                                <binaryCompatible>true</binaryCompatible>
-                                <sourceCompatible>true</sourceCompatible>
-                                <semanticVersionLevel>PATCH</semanticVersionLevel>
-                            </overrideCompatibilityChangeParameter>
-                            <overrideCompatibilityChangeParameter>
-                                <compatibilityChange>SUPERCLASS_ADDED</compatibilityChange>
-                                <binaryCompatible>true</binaryCompatible>
-                                <sourceCompatible>true</sourceCompatible>
-                                <semanticVersionLevel>PATCH</semanticVersionLevel>
-                            </overrideCompatibilityChangeParameter>
-                            <overrideCompatibilityChangeParameter>
-                                <compatibilityChange>ANNOTATION_DEPRECATED_ADDED</compatibilityChange>
-                                <semanticVersionLevel>PATCH</semanticVersionLevel>
-                                <sourceCompatible>true</sourceCompatible>
-                                <binaryCompatible>true</binaryCompatible>
-                            </overrideCompatibilityChangeParameter>
-                        </overrideCompatibilityChangeParameters>
-                    </parameter>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>check-compatibility</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>cmp</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.diffplug.spotless</groupId>
-                <artifactId>spotless-maven-plugin</artifactId>
-                <version>${spotless.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <formats>
-                        <format>
-                            <includes>
-                                <include>*.*</include>
-                            </includes>
-                            <excludes>
-                                <exclude>*.iml</exclude>
-                                <exclude>jcstress-*</exclude>
-                            </excludes>
-                            <trimTrailingWhitespace/>
-                            <endWithNewline/>
-                        </format>
-                    </formats>
-
-                    <java>
-                        <includes>
-                            <include>src/main/java/**/*.java</include>
-                            <include>src/main/java11/**/*.java</include>
-                            <include>src/main/java18/**/*.java</include>
-                            <include>src/test/java/**/*.java</include>
-                        </includes>
-                        <googleJavaFormat>
-                            <version>${google-java-format.version}</version>
-                        </googleJavaFormat>
-                        <removeUnusedImports/>
-                        <importOrder/>
-                    </java>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <id>check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!--
-                    Still too many failure (mostly in Javadoc) to enable it fully:
-                    <configLocation>google_checks.xml</configLocation>
-                    -->
-                    <configLocation>checkstyle/checkstyle-config.xml</configLocation>
-                    <suppressionsLocation>checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <linkXRef>false</linkXRef>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>9.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+            </plugin>                    
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -537,20 +364,7 @@
                         <ignoreVersion type="regex">(?i).*RC(?:-?\d+)?</ignoreVersion>
                         <ignoreVersion type="regex">(?i).*CR(?:-?\d+)?</ignoreVersion>
                         <ignoreVersion type="regex">(?i).*M(?:-?\d+)?</ignoreVersion>
-                    </ignoredVersions>
-                    <ruleSet>
-                        <rules>
-                            <rule>
-                                <!-- stay on slf4j 1.x -->
-                                <groupId>org.slf4j</groupId>
-                                <ignoreVersions><ignoreVersion>
-                                    <type>range</type>
-                                    <version>[2.0,)</version>
-                                </ignoreVersion>
-                                </ignoreVersions>
-                            </rule>
-                        </rules>
-                    </ruleSet>
+                    </ignoredVersions>                    
                 </configuration>
             </plugin>
         </plugins>
@@ -558,16 +372,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+        
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
@@ -633,13 +448,7 @@
             <artifactId>byte-buddy-agent</artifactId>
             <version>1.17.6</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
@@ -854,13 +663,7 @@
 
                     <plugin>
                         <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>org/xbill/DNS/AsyncSemaphore*</exclude>
-                                <exclude>org/xbill/DNS/DohResolver*</exclude>
-                            </excludes>
-                        </configuration>
+                        <artifactId>jacoco-maven-plugin</artifactId>                        
                     </plugin>
                 </plugins>
             </build>
@@ -1009,5 +812,39 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+			<id>no-gpg</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.1.2</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>none</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
     </profiles>
 </project>

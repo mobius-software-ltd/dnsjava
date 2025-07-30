@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import lombok.EqualsAndHashCode;
 
 /**
  * A set of Records with the same name, type, and class. Also included are all RRSIG records signing
@@ -19,8 +18,9 @@ import lombok.EqualsAndHashCode;
  * @see RRSIGRecord
  * @author Brian Wellington
  */
-@EqualsAndHashCode(of = {"rrs", "sigs"})
 public class RRset implements Serializable, Iterable<Record> {
+  private static final long serialVersionUID = 1L;
+
   private final ArrayList<Record> rrs;
   private final ArrayList<RRSIGRecord> sigs;
   private short position;
@@ -332,5 +332,36 @@ public class RRset implements Serializable, Iterable<Record> {
   @Override
   public Iterator<Record> iterator() {
     return rrs().iterator();
+  }
+
+  @Override
+  public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((rrs == null) ? 0 : rrs.hashCode());
+	result = prime * result + ((sigs == null) ? 0 : sigs.hashCode());
+	return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	RRset other = (RRset) obj;
+	if (rrs == null) {
+		if (other.rrs != null)
+			return false;
+	} else if (!rrs.equals(other.rrs))
+		return false;
+	if (sigs == null) {
+		if (other.sigs != null)
+			return false;
+	} else if (!sigs.equals(other.sigs))
+		return false;
+	return true;
   }
 }

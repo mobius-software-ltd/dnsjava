@@ -13,7 +13,12 @@ import java.util.List;
  *     Implementation and Specification</a>
  */
 public class TXTRecord extends TXTBase {
-  TXTRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+TXTRecord() {}
 
   /**
    * Creates a TXT Record from the given data

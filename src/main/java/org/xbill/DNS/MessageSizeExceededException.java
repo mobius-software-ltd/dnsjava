@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS;
 
-import lombok.Getter;
-
 /** Indicates that converting a {@link Message} to wire format exceeded the maximum length. */
-@Getter
 public final class MessageSizeExceededException extends Exception {
+  private static final long serialVersionUID = 1L;
+
   /** Gets the maximum allowed size (in bytes). */
   private final int maxSize;
 
@@ -13,4 +12,8 @@ public final class MessageSizeExceededException extends Exception {
     super("Message size would exceed the allowed maximum of " + maxSize + " bytes");
     this.maxSize = maxSize;
   }
+
+  public int getMaxSize() {
+	return maxSize;
+  }    
 }

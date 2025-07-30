@@ -10,7 +10,12 @@ package org.xbill.DNS;
  */
 public class InvalidTTLException extends IllegalArgumentException {
 
-  public InvalidTTLException(long ttl) {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public InvalidTTLException(long ttl) {
     super("Invalid DNS TTL: " + ttl);
   }
 }

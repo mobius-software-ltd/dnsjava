@@ -6,10 +6,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import lombok.extern.slf4j.Slf4j;
 
 /** Utility class to backport {@code orTimeout} to Java 8 with a custom implementation. */
-@Slf4j
 class TimeoutCompletableFuture<T> extends CompletableFuture<T> {
   public CompletableFuture<T> compatTimeout(long timeout, TimeUnit unit) {
     return compatTimeout(this, timeout, unit);

@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     DNS</a>
  */
 public class DNAMERecord extends SingleNameBase {
-  DNAMERecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+DNAMERecord() {}
 
   /**
    * Creates a new DNAMERecord with the given data

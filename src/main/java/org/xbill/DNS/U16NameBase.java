@@ -12,7 +12,11 @@ import java.io.IOException;
  * @author Brian Wellington
  */
 abstract class U16NameBase extends Record {
-  protected int u16Field;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+protected int u16Field;
   protected Name nameField;
 
   protected U16NameBase() {}

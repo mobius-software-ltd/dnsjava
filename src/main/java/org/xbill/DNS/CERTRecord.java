@@ -17,7 +17,12 @@ import org.xbill.DNS.utils.base64;
  */
 public class CERTRecord extends Record {
 
-  /** Certificate type identifiers. */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/** Certificate type identifiers. */
   public static class CertificateType {
 
     private CertificateType() {}

@@ -5,8 +5,7 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
 import org.xbill.DNS.NSEC3Record;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.utils.base32;
@@ -37,18 +36,26 @@ class Nsec3ValidationState {
     return entry;
   }
 
-  @RequiredArgsConstructor
   static class Nsec3CacheEntry {
-    @Getter private final byte[] hash;
+    private final byte[] hash;
     private String asBase32;
 
-    String getHashAsBase32() {
+    public Nsec3CacheEntry(byte[] hash) {
+		super();
+		this.hash = hash;
+	}
+
+	String getHashAsBase32() {
       if (asBase32 == null) {
         asBase32 = b32.toString(hash);
       }
 
       return asBase32;
     }
+
+	public byte[] getHash() {
+		return hash;
+	}        
   }
 
   private String key(NSEC3Record nsec3, Name name) {

@@ -30,7 +30,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,8 +53,8 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.TXTRecord;
 import org.xbill.DNS.Type;
 
-@Slf4j
 public abstract class TestBase {
+  protected static Logger log = LogManager.getLogger(TestBase.class);
   private static final boolean offline = !Boolean.getBoolean("dnsjava.dnssec.online");
   private static final boolean partialOffline =
       "partial".equals(System.getProperty("dnsjava.dnssec.offline"));
@@ -269,12 +271,12 @@ public abstract class TestBase {
   protected int getEdeReason(Message m) {
     int edeReason =
         Optional.ofNullable(m.getOPT())
-            .flatMap(
+            .<Integer>flatMap(
                 opt ->
                     opt.getOptions(Code.EDNS_EXTENDED_ERROR).stream()
                         .filter(o -> o instanceof ExtendedErrorCodeOption)
                         .findFirst()
-                        .map(o -> ((ExtendedErrorCodeOption) o).getErrorCode()))
+                        .<Integer>map(o -> ((ExtendedErrorCodeOption) o).getErrorCode()))
             .orElse(-1);
     if (edeReason != -1) {
       assertEquals(getReason(m), getEdeText(m));
@@ -295,12 +297,12 @@ public abstract class TestBase {
 
   protected String getEdeText(Message m) {
     return Optional.ofNullable(m.getOPT())
-        .flatMap(
+        .<String>flatMap(
             opt ->
                 opt.getOptions(Code.EDNS_EXTENDED_ERROR).stream()
                     .filter(ExtendedErrorCodeOption.class::isInstance)
                     .findFirst()
-                    .map(o -> ((ExtendedErrorCodeOption) o).getText()))
+                    .<String>map(o -> ((ExtendedErrorCodeOption) o).getText()))
         .orElse(null);
   }
 
@@ -339,12 +341,17 @@ public abstract class TestBase {
   }
 
   protected Record toRecord(String data) {
+	Master m = null;
     try {
       InputStream in = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
-      Master m = new Master(in, Name.root);
+      m = new Master(in, Name.root);
       return m.nextRecord();
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+    finally {
+    	if(m!=null)
+    		m.close();
     }
   }
 }

@@ -23,7 +23,11 @@ import java.util.List;
  * @author Brian Wellington
  */
 public class OPTRecord extends Record {
-  private List<EDNSOption> options;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private List<EDNSOption> options;
 
   OPTRecord() {}
 

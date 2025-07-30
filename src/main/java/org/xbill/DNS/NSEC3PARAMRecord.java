@@ -19,7 +19,11 @@ import org.xbill.DNS.utils.base16;
  *     Hashed Authenticated Denial of Existence</a>
  */
 public class NSEC3PARAMRecord extends Record {
-  private int hashAlg;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private int hashAlg;
   private int flags;
   private int iterations;
   private byte[] salt;

@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS.utils;
 
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
 class BaseUtils {
   /**
    * Wrap a long string at {@code lineLength} characters.
@@ -14,7 +11,7 @@ class BaseUtils {
    * @param addClose Whether to add a close parenthesis or not.
    * @return The wrapped string.
    */
-  String wrapLines(String s, int lineLength, String prefix, boolean addClose) {
+  static String wrapLines(String s, int lineLength, String prefix, boolean addClose) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < s.length(); i += lineLength) {
       sb.append(prefix);

@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class PTRRecord extends SingleCompressedNameBase {
-  PTRRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+PTRRecord() {}
 
   /**
    * Creates a new PTR Record with the given data

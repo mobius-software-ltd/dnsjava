@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS;
 
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
 class Utils {
   static boolean isUInt8(int value) {
     return value >= 0 && value <= 255;

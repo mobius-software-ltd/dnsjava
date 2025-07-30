@@ -12,7 +12,9 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.function.Supplier;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.utils.base16;
 
 /**
@@ -21,8 +23,10 @@ import org.xbill.DNS.utils.base16;
  *
  * @author Brian Wellington
  */
-@Slf4j
 public abstract class Record implements Cloneable, Comparable<Record>, Serializable {
+  private static final long serialVersionUID = 1L;
+	
+  private Logger log = LogManager.getLogger(Record.class);
   protected Name name;
   protected int type;
   protected int dclass;

@@ -19,7 +19,12 @@ import java.util.Date;
  * @author Brian Wellington
  */
 public class RRSIGRecord extends SIGBase {
-  RRSIGRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+RRSIGRecord() {}
 
   /**
    * Creates an RRSIG Record from the given data

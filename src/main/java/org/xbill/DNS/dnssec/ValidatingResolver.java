@@ -24,9 +24,9 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.CNAMERecord;
 import org.xbill.DNS.DClass;
 import org.xbill.DNS.DNAMERecord;
@@ -58,8 +58,8 @@ import org.xbill.DNS.dnssec.ValUtils.NsecProvesNodataResponse;
  *
  * @since 3.5
  */
-@Slf4j
 public final class ValidatingResolver implements Resolver {
+  private static Logger log = LogManager.getLogger(ValidatingResolver.class);
   /**
    * Property name from where the trust anchors are loaded.
    *
@@ -102,7 +102,7 @@ public final class ValidatingResolver implements Resolver {
    * Section#ADDITIONAL} section. The record is available at {@code ./TXT/}{@value
    * #VALIDATION_REASON_QCLASS}.
    */
-  @Getter @Setter private boolean isAddReasonToAdditional = true;
+  private boolean isAddReasonToAdditional = true;
 
   /**
    * Creates a new instance of this class.
@@ -234,6 +234,14 @@ public final class ValidatingResolver implements Resolver {
    */
   public TrustAnchorStore getTrustAnchors() {
     return this.trustAnchors;
+  }
+
+  public boolean isAddReasonToAdditional() {
+	return isAddReasonToAdditional;
+  }
+
+  public void setAddReasonToAdditional(boolean isAddReasonToAdditional) {
+	this.isAddReasonToAdditional = isAddReasonToAdditional;
   }
 
   /**

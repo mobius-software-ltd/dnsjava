@@ -8,8 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
@@ -27,7 +28,7 @@ public abstract class BaseResolverConfigProvider implements ResolverConfigProvid
 
   private final List<InetSocketAddress> nameservers = new ArrayList<>(3);
 
-  protected final Logger log = LoggerFactory.getLogger(getClass());
+  protected final static Logger log = LogManager.getLogger(BaseResolverConfigProvider.class);
   protected final List<Name> searchlist = new ArrayList<>(1);
 
   protected final void reset() {

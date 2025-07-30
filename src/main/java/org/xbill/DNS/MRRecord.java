@@ -11,7 +11,12 @@ package org.xbill.DNS;
  *     Implementation and Specification</a>
  */
 public class MRRecord extends SingleNameBase {
-  MRRecord() {}
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+MRRecord() {}
 
   /**
    * Creates a new MR Record with the given data

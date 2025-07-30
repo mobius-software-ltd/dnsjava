@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 package org.xbill.DNS.lookup;
 
-import lombok.Getter;
 import org.xbill.DNS.ExtendedErrorCodeOption;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.Type;
@@ -13,13 +12,15 @@ import org.xbill.DNS.Type;
  * @since 3.4
  */
 public class ServerFailedException extends LookupFailedException {
+  private static final long serialVersionUID = 1L;
+
   /**
    * An extended error code explaining why the server failed to return a result. May be {@code
    * null}.
    *
    * @since 3.6
    */
-  @Getter private final ExtendedErrorCodeOption extendedRcode;
+  private final ExtendedErrorCodeOption extendedRcode;
 
   public ServerFailedException() {
     extendedRcode = null;
@@ -53,4 +54,8 @@ public class ServerFailedException extends LookupFailedException {
         type);
     this.extendedRcode = extendedRcode;
   }
+
+  public ExtendedErrorCodeOption getExtendedRcode() {
+	return extendedRcode;
+  }    
 }

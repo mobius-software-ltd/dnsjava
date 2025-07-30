@@ -20,7 +20,12 @@ import java.util.StringTokenizer;
  *     Compatibility for Delegation Signer (DS)</a>
  */
 public class KEYRecord extends KEYBase {
-  /** KEY protocol identifiers. */
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/** KEY protocol identifiers. */
   public static class Protocol {
 
     private Protocol() {}
