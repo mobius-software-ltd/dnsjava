@@ -32,11 +32,12 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:https://github.com/mobius-software-ltd/dnsjava.git</connection>
-        <developerConnection>scm:git@github.com:mobius-software-ltd/dnsjava.git</developerConnection>
-        <url>https://github.com/mobius-software-ltd/dnsjava</url>
-        <tag>HEAD</tag>
-    </scm>
+		<connection>scm:git:https://github.com/mobius-software-ltd/dnsjava.git</connection>
+		<developerConnection>scm:git:git@github.com:mobius-software-ltd/dnsjava.git</developerConnection>
+		<url>https://github.com/mobius-software-ltd/dnsjava</url>
+	    <tag>HEAD</tag>
+    </scm>   
+    
     <developers>
         <developer>
             <id>bwelling</id>
