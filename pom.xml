@@ -32,9 +32,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:https://github.com/dnsjava/dnsjava</connection>
-        <developerConnection>scm:git:https://github.com/dnsjava/dnsjava</developerConnection>
-        <url>https://github.com/dnsjava/dnsjava</url>
+        <connection>scm:git:https://github.com/mobius-software-ltd/dnsjava.git</connection>
+        <developerConnection>scm:git@github.com:mobius-software-ltd/dnsjava.git</developerConnection>
+        <url>https://github.com/mobius-software-ltd/dnsjava</url>
         <tag>HEAD</tag>
     </scm>
     <developers>
